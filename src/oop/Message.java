@@ -17,4 +17,12 @@ public class Message {
         this.reciver = reciver;
         this.creationTime = creationTime;
     }
+
+    public static String getReciver() {
+        return reciver;
+    }
+
+    public Timestamp getCreationTime() {
+        return creationTime;
+    }
 }
