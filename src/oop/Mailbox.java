@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Mailbox implements Iterable<Message> {
     private String username;
-    private List<Message> messageList = new ArrayList<Message>();
+    private ArrayList<Message> messageList = new ArrayList<>();
 
     public Mailbox(String username) {
         this.username = username;
@@ -17,11 +17,11 @@ public class Mailbox implements Iterable<Message> {
         return messageList.iterator();
     }
 
-    public void Update(List<Message> messageList){
+    public void Update(ArrayList<Message> messageList){
         this.messageList = messageList;
     }
 
-    public List<Message> List() {
+    public ArrayList<Message> List() {
         return this.messageList;
     }
 
@@ -30,6 +30,8 @@ public class Mailbox implements Iterable<Message> {
     }
 
     public ArrayList<Message> Sorted() {
-        return new ArrayList<Message>(messageList).sort(Comparator.comparing(Message::getCreationTime));
+        ArrayList<Message> l = new ArrayList<>(messageList);
+        l.sort(Comparator.comparing(Message::getReciver));
+        return l;
     }
 }
