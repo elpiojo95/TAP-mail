@@ -18,11 +18,18 @@ public class Message {
         this.creationTime = creationTime;
     }
 
-    public static String getReciver() {
+    public String getReciver() {
         return reciver;
     }
 
     public Timestamp getCreationTime() {
         return creationTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "reciver='" + reciver + '\'' +
+                '}';
     }
 }
