@@ -1,4 +1,4 @@
 package oop;
 
-public class MemoryMailStore {
+public class MemoryMailStore implements MailStore {
 }
