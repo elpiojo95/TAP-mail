@@ -17,6 +17,10 @@ public class Message {
         this.creationTime = creationTime;
     }
 
+    public String getSubject() {
+        return subject;
+    }
+
     public String getSender() {
         return sender;
     }
