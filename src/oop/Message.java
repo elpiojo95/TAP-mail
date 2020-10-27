@@ -17,6 +17,10 @@ public class Message {
         this.creationTime = creationTime;
     }
 
+    public String getSender() {
+        return sender;
+    }
+
     public String getReceiver() {
         return receiver;
     }
@@ -28,7 +32,11 @@ public class Message {
     @Override
     public String toString() {
         return "Message{" +
-                "receiver='" + receiver + '\'' +
-                '}';
+                "\n\tsubject='" + subject + '\'' +
+                ",\n\tbody='" + body + '\'' +
+                ",\n\tsender='" + sender + '\'' +
+                ",\n\treceiver='" + receiver + '\'' +
+                ",\n\tcreationTime=" + creationTime +
+                "\n}";
     }
 }
