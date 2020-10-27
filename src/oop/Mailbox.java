@@ -1,6 +1,5 @@
 package oop;
 
-import java.sql.Array;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -29,9 +28,9 @@ public class Mailbox implements Iterable<Message> {
         return new Message(subject,body,this.username,destination, new Timestamp(System.currentTimeMillis()));
     }
 
-    public ArrayList<Message> Sorted() {
+    public ArrayList<Message> Sorted(Comparator<Message> c) {
         ArrayList<Message> l = new ArrayList<>(messageList);
-        l.sort(Comparator.comparing(Message::getReciver));
+        l.sort(c);
         return l;
     }
 }

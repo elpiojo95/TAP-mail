@@ -2,6 +2,7 @@ package oop;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Tests {
     public static void main(String[] args) {
@@ -24,6 +25,6 @@ public class Tests {
                 "A",
                 new Timestamp(System.currentTimeMillis())));
         mb.Update(list);
-        System.out.println(mb.Sorted());
+        System.out.println(mb.Sorted(Comparator.comparing(Message::getCreationTime)));
     }
 }
