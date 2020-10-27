@@ -25,6 +25,6 @@ public class Tests {
                 "A",
                 new Timestamp(System.currentTimeMillis())));
         mb.Update(list);
-        System.out.println(mb.Sorted(Comparator.comparing(Message::getCreationTime)));
+        System.out.println(mb.Sorted(Comparator.comparing(Message::getReceiver)));
     }
 }

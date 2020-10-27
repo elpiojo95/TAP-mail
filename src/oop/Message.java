@@ -1,25 +1,24 @@
 package oop;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Message {
     private String subject;
     private String body;
     private String sender;
-    private String  reciver;
+    private String receiver;
     private Timestamp creationTime;
 
-    public Message(String subject, String body, String sender, String reciver, Timestamp creationTime) {
+    public Message(String subject, String body, String sender, String receiver, Timestamp creationTime) {
         this.subject = subject;
         this.body = body;
         this.sender = sender;
-        this.reciver = reciver;
+        this.receiver = receiver;
         this.creationTime = creationTime;
     }
 
-    public String getReciver() {
-        return reciver;
+    public String getReceiver() {
+        return receiver;
     }
 
     public Timestamp getCreationTime() {
@@ -29,7 +28,7 @@ public class Message {
     @Override
     public String toString() {
         return "Message{" +
-                "reciver='" + reciver + '\'' +
+                "receiver='" + receiver + '\'' +
                 '}';
     }
 }
