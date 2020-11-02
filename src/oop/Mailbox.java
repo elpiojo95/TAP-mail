@@ -16,7 +16,7 @@ public class Mailbox implements Iterable<Message> {
         return messageList.iterator();
     }
 
-    public void Update(ArrayList<Message> messageList){
+    public void update(ArrayList<Message> messageList){
         this.messageList = messageList;
     }
 
@@ -24,25 +24,25 @@ public class Mailbox implements Iterable<Message> {
         return this.messageList;
     }
 
-    public Message Send(String destination,String subject, String body) {
+    public Message send(String destination, String subject, String body) {
         return new Message(subject,body,this.username,destination, new Timestamp(System.currentTimeMillis()));
     }
 
-    public ArrayList<Message> Sorted(Comparator<Message> comparator) {
+    public ArrayList<Message> sorted(Comparator<Message> comparator) {
         ArrayList<Message> l = new ArrayList<>(messageList);
         l.sort(comparator);
         return l;
     }
 
-    public ArrayList<Message> FilterSender(String username) {
-        return this.Filter(MessageUtils.filterSender(username));
+    public ArrayList<Message> filterSender(String username) {
+        return this.filter(MessageUtils.filterSender(username));
     }
 
-    public ArrayList<Message> FilterSubject(String string) {
-        return this.Filter(MessageUtils.filterSubject(string));
+    public ArrayList<Message> filterSubject(String string) {
+        return this.filter(MessageUtils.filterSubject(string));
     }
 
-    public ArrayList<Message> Filter(java.util.function.Predicate<Message> predicate) {
+    public ArrayList<Message> filter(java.util.function.Predicate<Message> predicate) {
         ArrayList<Message> list = new ArrayList<>();
         messageList
                 .stream()

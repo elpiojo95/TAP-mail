@@ -31,9 +31,9 @@ public class Tests {
                 new Timestamp(System.currentTimeMillis())));
 
 
-        mb.Update(messagelist);
-        System.out.println(mb.Sorted(Comparator.comparing(Message::getSender)));
+        mb.update(messagelist);
+        System.out.println(mb.sorted(Comparator.comparing(Message::getSender)));
         System.out.println("---\nFilter\n---");
-        System.out.println(mb.Filter(MessageUtils.filterSubject("prueba")));
+        System.out.println(mb.filter(MessageUtils.filterSubject("prueba")));
     }
 }
