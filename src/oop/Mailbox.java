@@ -10,14 +10,16 @@ import java.util.*;
  */
 public class Mailbox implements Iterable<Message> {
     private String username;
-    private ArrayList<Message> messageList = new ArrayList<>();
+    private List<Message> messageList = new ArrayList<>();
+    private MailStore mailStore;
 
     /**
      * Class constructor
      * @param username username
      */
-    public Mailbox(String username) {
+    public Mailbox(String username, MailStore mailStore) {
         this.username = username;
+        this.mailStore = mailStore;
     }
 
     /**
@@ -31,17 +33,16 @@ public class Mailbox implements Iterable<Message> {
 
     /**
      * Updates the message list in the mailbox
-     * @param messageList list of the new messages the user receive
      */
-    public void update(ArrayList<Message> messageList){
-        this.messageList = messageList;
+    public void update(){
+        this.messageList = mailStore.get(this.username);
     }
 
     /**
      * getter of messagelist
      * @return messagelist
      */
-    public ArrayList<Message> getMessageListList() {
+    public List<Message> messageList() {
         return this.messageList;
     }
 
@@ -51,10 +52,9 @@ public class Mailbox implements Iterable<Message> {
      * @param destination username of de receiver
      * @param subject topic of the message
      * @param body main text of the message
-     * @return Message
      */
-    public Message send(String destination, String subject, String body) {
-        return new Message(subject,body,this.username,destination, new Timestamp(System.currentTimeMillis()));
+    public void send(String destination, String subject, String body) {
+        mailStore.send(new Message(subject,body,this.username,destination, new Timestamp(System.currentTimeMillis())));
     }
 
     /**
@@ -63,7 +63,7 @@ public class Mailbox implements Iterable<Message> {
      * @return messageList new message list sorted
      */
     public ArrayList<Message> sorted(Comparator<Message> comparator) {
-        ArrayList<Message> l = new ArrayList<>(messageList);
+        ArrayList<Message> l = new ArrayList<>(mailStore.get(this.username));
         l.sort(comparator);
         return l;
     }
@@ -95,7 +95,7 @@ public class Mailbox implements Iterable<Message> {
      */
     public ArrayList<Message> filter(java.util.function.Predicate<Message> predicate) {
         ArrayList<Message> list = new ArrayList<>();
-        messageList
+        mailStore.get(this.username)
                 .stream()
                 .filter(predicate)
                 .forEach(list::add);
