@@ -12,4 +12,16 @@ public class User {
         this.name = name;
         this.birthDate = birthDate;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
 }
