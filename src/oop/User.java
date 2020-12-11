@@ -24,4 +24,13 @@ public class User {
     public Date getBirthDate() {
         return birthDate;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }

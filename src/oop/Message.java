@@ -25,6 +25,10 @@ public class Message {
         return sender;
     }
 
+    public String getBody() {
+        return body;
+    }
+
     public String getReceiver() {
         return receiver;
     }
