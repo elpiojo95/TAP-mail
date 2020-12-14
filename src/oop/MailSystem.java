@@ -1,9 +1,6 @@
 package oop;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class MailSystem {
@@ -34,6 +31,13 @@ public class MailSystem {
 
     public List<User> getUserList() {
         return userList;
+    }
+
+    public Mailbox getMailbox(User user) {
+        return mailboxesList.stream()
+                .filter(mailbox -> mailbox.getUser().equals(user))
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Message> filter(java.util.function.Predicate<Message> predicate){
