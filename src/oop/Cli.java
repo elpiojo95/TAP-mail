@@ -10,7 +10,7 @@ public class Cli {
     MailStore mailStore;
 
     static List<String> validComand = List.of("help", "createuser", "filter", "logas", "exit");
-    static List<String> validMailboxComands = List.of("help", "send", "update", "list", "sort", "filter");
+    static List<String> validMailboxComands = List.of("help", "send", "update", "list", "sort", "filter", "exit");
     static MailSystem mailSystem;
 
     Mailbox userMailbox = null;
@@ -24,7 +24,7 @@ public class Cli {
         // start test
         String[] command = {"createuser", "elpiojo", "Leo", "07/09/1995"};
         try {
-            createuser(command);
+            createUser(command);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class Cli {
 
     private void printHelp() {
         System.out.println("createuser <username> <Name> <DD/MM/YYYY>");
-        System.out.println("filter <...>");
+        System.out.println("filter <predicate>\n\tpredicates:\n\t\tcontains <word>\n\t\tlessthan <n>");
         System.out.println("logas <username>");
     }
 
@@ -67,7 +67,7 @@ public class Cli {
     }
 
     private int readCommand() throws ParseException {
-        System.out.print(">");
+        System.out.print("$");
         Scanner scanner = new Scanner(System.in);
         String[] command = scanner.nextLine().split(" ");
         if (!isValid(command)) return 1;
@@ -78,11 +78,10 @@ public class Cli {
                 break;
             // CREATEUSER command
             case 1 :
-                return createuser(command);
+                return createUser(command);
             // FILTER command
             case 2 :
-                System.out.println("filter");
-                break;
+                return filter(command);
             // LOGAS command
             case 3 :
                 return logIn(command);
@@ -100,19 +99,16 @@ public class Cli {
         String s = scanner.nextLine();
         Matcher m = p.matcher(s);
         m.find();
-        System.out.println(m.group(3));
-        //String[] command = scanner.nextLine().split("([\\w]*)(\\w*)(.*)");
-        String[] command = {};
-        System.out.println(Arrays.toString(command));
-        if (!isValidMailbox(command)) return 1;
-        switch (validMailboxComands.indexOf(command[0])) {
+
+        if (!isValidMailbox(m.group(1))) return 1;
+        switch (validMailboxComands.indexOf(m.group(1))) {
             // HELP command
             case 0 :
                 printHelpMailbox();
                 break;
             // SEND command
             case 1 :
-                return send(command);
+               // return send(m.group(1));
             // ??? command
             case 2 :
 
@@ -127,10 +123,29 @@ public class Cli {
         return 0;
     }
 
-    private int createuser(String[] command) throws ParseException {
-        //TO-DO Comproobar que los parametros son corrrectos
-        Date date=new SimpleDateFormat("dd/MM/yyyy").parse(command[3]);
-        mailSystem.createUser(command[1], command[2], date);
+    private int createUser(String[] command) throws ParseException {
+        String p = "\\d{2}/\\d{2}/\\d{4}";
+        String name = command[2];
+        String[] newCommand;
+        newCommand = Arrays.copyOfRange(command,3,command.length);
+        for (String s : newCommand) {
+            if (s.matches(p)){
+                Date date=new SimpleDateFormat("dd/MM/yyyy").parse(s);
+                mailSystem.createUser(command[1],name,date);
+                return 0;
+            }else {
+                name = name.concat(" "+s);
+            }
+        }
+        return 2;
+    }
+
+    private int filter(String[] command){
+        if (command[1].equals("contains")){
+            System.out.println(mailSystem.filterPerWord(command[2]));
+        }else if (command[1].equals("lessthan")){
+            System.out.println(mailSystem.filterPerNumWords(Integer.parseInt(command[2])));
+        }else return 2;
         return 0;
     }
 
@@ -138,8 +153,8 @@ public class Cli {
         return validComand.contains(command[0]);
     }
 
-    private boolean isValidMailbox(String[] command) {
-        return validMailboxComands.contains(command[0]);
+    private boolean isValidMailbox(String command) {
+        return validMailboxComands.contains(command);
     }
 
     private void selectMailstore() {
@@ -174,7 +189,7 @@ public class Cli {
         if (user != null) {
             return runMailbox(mailSystem.getMailbox(user));
         }
-        return 0;
+        return 2;
     }
 
     private int send(String[] command) {

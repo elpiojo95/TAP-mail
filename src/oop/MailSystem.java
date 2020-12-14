@@ -59,6 +59,23 @@ public class MailSystem {
         messageList.stream().filter((Message m) -> m.getSubject().toLowerCase().contains(subject.toLowerCase())).forEach(subjectSorted::add);
         return subjectSorted;
     }
+
+    public List <Message> filterPerWord(String word){
+        List<Message> wordFilter = new ArrayList<>();
+        messageList.stream().filter((Message m) -> m.getSubject().toLowerCase().contains(word.toLowerCase())).forEach(wordFilter::add);
+        messageList.stream().filter((Message m) -> m.getBody().toLowerCase().contains(word.toLowerCase())).forEach(wordFilter::add);
+        return wordFilter;
+    }
+
+    public List <Message> filterPerNumWords(int n){
+        List<Message> lessNWords = new ArrayList<>();
+        for (Message message : messageList) {
+            if (n > message.getBody().split("[\\w]+").length){
+                lessNWords.add(message);
+            }
+        }
+        return lessNWords;
+    }
     
     public int wordCounterByName(String name){
         int result = 0;

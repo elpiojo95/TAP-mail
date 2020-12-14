@@ -21,8 +21,8 @@ public class Tests {
         mbmimi.send("JordiPtoAmo","Prueba4","heey");
         mbmimi.send("Mimi","to myself","soy tonta y me gusta serlo");
 
-        mbjordi.send("Leo", "Prueba5", "Leo bon examen!");
-        mbjordi.send("JordiPtoAmo","per mi","recorda posar un 10 a la mimi i al leo");
+        mbjordi.send("Leo", "Prueba5", "Leo bon examen");
+        mbjordi.send("JordiPtoAmo","per mi","prueba de words");
         mbjordi.send("Mimi","alumna exemplar","segueix aixi crack");
 
         System.out.println("----Messages in the system----");
@@ -33,6 +33,12 @@ public class Tests {
         System.out.println("--------");
         System.out.println("----filter by sender----");
         System.out.println(mailSystem.filter(MessageUtils.filterSender("JordiPtoAmo")));
+        System.out.println("--------");
+        System.out.println("----filter word ----");
+        System.out.println(mailSystem.filterPerWord("prueba"));
+        System.out.println("--------");
+        System.out.println("----filter num word ----");
+        System.out.println(mailSystem.filterPerNumWords(4));
         System.out.println("--------");
         System.out.println("----number of messages----");
         System.out.println(mailSystem.NumberMessages());
