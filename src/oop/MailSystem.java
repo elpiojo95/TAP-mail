@@ -20,8 +20,9 @@ public class MailSystem {
     }
 
     public Mailbox createUser(String username, String name, Date birthDate){
-        userList.add(new User(username, name, birthDate));
-        Mailbox mbox = new Mailbox(username, mStore);
+        User user = new User(username, name, birthDate);
+        userList.add(user);
+        Mailbox mbox = new Mailbox(user, mStore);
         mailboxesList.add(mbox);
         return mbox;
     }

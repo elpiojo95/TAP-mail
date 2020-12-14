@@ -9,7 +9,8 @@ import java.util.*;
  * @author Miriam Gertrudix Pedrola
  */
 public class Mailbox implements Iterable<Message> {
-    private String username;
+
+    private User user;
     private List<Message> messageList = new ArrayList<>();
     private MailStore mailStore;
 
@@ -17,8 +18,8 @@ public class Mailbox implements Iterable<Message> {
      * Class constructor
      * @param username username
      */
-    public Mailbox(String username, MailStore mailStore) {
-        this.username = username;
+    public Mailbox(User username, MailStore mailStore) {
+        this.user = username;
         this.mailStore = mailStore;
     }
 
@@ -35,7 +36,7 @@ public class Mailbox implements Iterable<Message> {
      * Updates the message list in the mailbox
      */
     public void update(){
-        this.messageList = mailStore.get(this.username);
+        this.messageList = mailStore.get(this.user.getUsername());
     }
 
     /**
@@ -54,7 +55,12 @@ public class Mailbox implements Iterable<Message> {
      * @param body main text of the message
      */
     public void send(String destination, String subject, String body) {
-        mailStore.send(new Message(subject,body,this.username,destination, new Timestamp(System.currentTimeMillis())));
+        mailStore.send(new Message(
+                subject,
+                body,
+                this.user.getUsername(),
+                destination,
+                new Timestamp(System.currentTimeMillis())));
     }
 
     /**
@@ -63,7 +69,7 @@ public class Mailbox implements Iterable<Message> {
      * @return messageList new message list sorted
      */
     public ArrayList<Message> sorted(Comparator<Message> comparator) {
-        ArrayList<Message> l = new ArrayList<>(mailStore.get(this.username));
+        ArrayList<Message> l = new ArrayList<>(mailStore.get(this.user.getUsername()));
         l.sort(comparator);
         return l;
     }
@@ -95,10 +101,14 @@ public class Mailbox implements Iterable<Message> {
      */
     public ArrayList<Message> filter(java.util.function.Predicate<Message> predicate) {
         ArrayList<Message> list = new ArrayList<>();
-        mailStore.get(this.username)
+        mailStore.get(this.user.getUsername())
                 .stream()
                 .filter(predicate)
                 .forEach(list::add);
         return list;
+    }
+
+    public User getUser() {
+        return this.user;
     }
 }
