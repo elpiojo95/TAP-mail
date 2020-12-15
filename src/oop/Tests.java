@@ -2,6 +2,7 @@ package oop;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Tests {
     public static void main(String[] args) {
@@ -20,7 +21,11 @@ public class Tests {
         mbmimi.send("Leo", "Prueba2", "Cute red panda");
         mbmimi.send("JordiPtoAmo","Prueba4","heey");
         mbmimi.send("Mimi","to myself","soy tonta y me gusta serlo");
-
+        try {
+            TimeUnit.MINUTES.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         mbjordi.send("Leo", "Prueba5", "Leo bon examen");
         mbjordi.send("JordiPtoAmo","per mi","prueba de words");
         mbjordi.send("Mimi","alumna exemplar","segueix aixi crack");
@@ -56,6 +61,10 @@ public class Tests {
         System.out.println(mailSystem.bornBefore(2000));
         System.out.println("--------");
 
+        mbleo.update();
+        System.out.println("\n\n----message list leo----");
+        System.out.println(mbleo.messageList());
+        System.out.println("--------");
 
         /*Mailbox mb = new Mailbox("Leo", memory);
         Mailbox mb2 = new Mailbox("Mimi", memory);

@@ -56,18 +56,20 @@ public class Cli {
 
     private void printHelp() {
         System.out.println("createuser <username> <Name> <DD/MM/YYYY>");
-        System.out.println("filter <predicate>\n\tpredicates:\n\t\tcontains <word>\n\t\tlessthan <n>");
+        System.out.println("filter <predicate>\npredicates:\n\t\tcontains <word>\n\t\tlessthan <n>");
         System.out.println("logas <username>");
     }
 
     private void printHelpMailbox() {
-        System.out.println("send <to> \"subject\" \"body\"");
-        System.out.println("filter <...>");
-        System.out.println("logas <username>");
+        System.out.println("send <to> -s \"subject\" -b \"body\"");
+        System.out.println("update");
+        System.out.println("list");
+        System.out.println("sort<Comparator>\nComparators:\n\t\tsender\n\t\ttime");
+        System.out.println("filter<...>");
     }
 
     private int readCommand() throws ParseException {
-        System.out.print("$");
+        System.out.print("$ ");
         Scanner scanner = new Scanner(System.in);
         String[] command = scanner.nextLine().split(" ");
         if (!isValid(command)) return 1;
@@ -95,11 +97,12 @@ public class Cli {
     private int readMailboxComand() throws ParseException {
         System.out.print(">");
         Scanner scanner = new Scanner(System.in);
-        Pattern p = Pattern.compile("([\\w]*)(\\w*)(.*)");
+        Pattern p = Pattern.compile("(\\w*)\\s*(\\w*)\\s*(.*)");
         String s = scanner.nextLine();
         Matcher m = p.matcher(s);
         m.find();
 
+        //System.out.println(m.group(1));
         if (!isValidMailbox(m.group(1))) return 1;
         switch (validMailboxComands.indexOf(m.group(1))) {
             // HELP command
@@ -108,16 +111,21 @@ public class Cli {
                 break;
             // SEND command
             case 1 :
-               // return send(m.group(1));
-            // ??? command
+                return send(m.group(2),m.group(3));
+            // update command
             case 2 :
-
-                break;
-            // ??? command
+                return update();
+            // list command
             case 3 :
-
-            // ??? command
-            case 4 : return 1;
+                return list();
+            // sort command
+            case 4 :
+                return sort(m.group(2));
+            // filter command
+            case 5 :
+                return 0;
+            //EXIT case
+            case 6 : return 1;
             default: return 2;
         }
         return 0;
@@ -192,12 +200,42 @@ public class Cli {
         return 2;
     }
 
-    private int send(String[] command) {
-        String destination = command[1];
-        System.out.println(Arrays.toString(command));
-        String subject;
-        String body;
-        //userMailbox.send(destination,subject, body);
+    private int send(String command1, String command2) {
+        String destination;
+        if (mailSystem.getUserList().stream().anyMatch(user -> user.getUsername().equals(command1))){
+            destination = command1;
+        }else return 2;
+        Pattern p = Pattern.compile("-s (.*) -b (.*)");
+        Matcher m = p.matcher(command2);
+        m.find();
+        String subject = m.group(1);
+        String body= m.group(2);
+        userMailbox.send(destination,subject, body);
+        System.out.println("Message sent");
+        return 0;
+    }
+
+    private int update(){
+        System.out.println("Mailbox up of date");
+        userMailbox.update();
+        return 0;
+
+    }
+    private int list(){
+        System.out.println(userMailbox.messageList());
+        return 0;
+    }
+
+    private int sort(String command){
+        if (command.equals("sender")){
+            System.out.println(userMailbox.sorted(Comparator.comparing(Message::getSender)));
+        }else if (command.equals("time")){
+            System.out.println(userMailbox.sorted(Comparator.comparing(Message::getCreationTime)));
+        } else return 2;
+        return 0;
+    }
+    private int filterUserMailbox(){
+
         return 0;
     }
 
