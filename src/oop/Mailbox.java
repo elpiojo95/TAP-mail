@@ -49,6 +49,14 @@ public class Mailbox implements Iterable<Message> {
     }
 
     /**
+     * getter of user
+     * @return user
+     */
+    public User getUser() {
+        return this.user;
+    }
+
+    /**
      * Send a message to another user
      * returns the message created
      * @param destination username of de receiver
@@ -95,6 +103,7 @@ public class Mailbox implements Iterable<Message> {
         return this.filter(MessageUtils.filterSubject(string));
     }
 
+
     /**
      * returns a new message list filtered by a given predicate
      * @param predicate {@link MessageUtils}
@@ -107,9 +116,5 @@ public class Mailbox implements Iterable<Message> {
                 .filter(predicate)
                 .forEach(list::add);
         return list;
-    }
-
-    public User getUser() {
-        return this.user;
     }
 }

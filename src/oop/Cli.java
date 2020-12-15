@@ -1,5 +1,6 @@
 package oop;
 
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -23,11 +24,15 @@ public class Cli {
         System.out.println("\tWelcome to MyMailApp");
         // start test
         String[] command = {"createuser", "elpiojo", "Leo", "07/09/1995"};
+        String[] command1 = {"createuser", "mimi", "Miriam", "22/07/1992"};
+
         try {
             createUser(command);
+            createUser(command1);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
         // end test
         int exitCode = 0;
         try {
@@ -65,7 +70,7 @@ public class Cli {
         System.out.println("update");
         System.out.println("list");
         System.out.println("sort<Comparator>\nComparators:\n\t\tsender\n\t\ttime");
-        System.out.println("filter<...>");
+        System.out.println("filter<predicate>\npredicates:\n\t\tsubject <word>\n\t\tsender <username>");
     }
 
     private int readCommand() throws ParseException {
@@ -123,9 +128,9 @@ public class Cli {
                 return sort(m.group(2));
             // filter command
             case 5 :
-                return 0;
+                return filterUserMailbox(m.group(2), m.group(3));
             //EXIT case
-            case 6 : return 1;
+            case 6 : return run();
             default: return 2;
         }
         return 0;
@@ -234,8 +239,14 @@ public class Cli {
         } else return 2;
         return 0;
     }
-    private int filterUserMailbox(){
-
+    private int filterUserMailbox(String command1,String command2){
+        System.out.println("g2: "+command1);
+        System.out.println("g3: "+command2);
+        if (command1.equals("subject")){
+            System.out.println(userMailbox.filter(MessageUtils.filterSubject(command2)));
+        }else if (command1.equals("sender")){
+            System.out.println(userMailbox.filter(MessageUtils.filterSender(command2)));
+        } else return 2;
         return 0;
     }
 

@@ -24,6 +24,7 @@ public class MailSystem {
         return mbox;
     }
 
+
     public List<Message> getMessageList(){
         userList.forEach(user -> messageList.addAll(mStore.get(user.getUsername())));
         return messageList;

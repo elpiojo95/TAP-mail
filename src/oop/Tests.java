@@ -21,11 +21,7 @@ public class Tests {
         mbmimi.send("Leo", "Prueba2", "Cute red panda");
         mbmimi.send("JordiPtoAmo","Prueba4","heey");
         mbmimi.send("Mimi","to myself","soy tonta y me gusta serlo");
-        try {
-            TimeUnit.MINUTES.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         mbjordi.send("Leo", "Prueba5", "Leo bon examen");
         mbjordi.send("JordiPtoAmo","per mi","prueba de words");
         mbjordi.send("Mimi","alumna exemplar","segueix aixi crack");
