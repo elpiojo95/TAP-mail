@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 public class Cli {
     MailStore mailStore;
 
-    static List<String> validComand = List.of("help", "createuser", "filter", "logas", "exit");
-    static List<String> validMailboxComands = List.of("help", "send", "update", "list", "sort", "filter", "exit");
+    static List<String> validCommand = List.of("help", "createuser", "filter", "logas", "exit");
+    static List<String> validMailboxCommands = List.of("help", "send", "update", "list", "sort", "filter", "exit");
     static MailSystem mailSystem;
 
     Mailbox userMailbox = null;
@@ -44,13 +44,8 @@ public class Cli {
         System.out.println("\tWelcome to MyMailApp " + mailbox.getUser().getName());
         userMailbox = mailbox;
         int exitCode = 0;
-        try {
-            exitCode = readMailboxComand();
-            while (exitCode == 0)
-                exitCode = readMailboxComand();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        while (exitCode == 0) exitCode = readMailboxCommand();
+
         return exitCode;
     }
 
@@ -73,7 +68,7 @@ public class Cli {
         Scanner scanner = new Scanner(System.in);
         String[] command = scanner.nextLine().split(" ");
         if (!isValid(command)) return 1;
-        switch (validComand.indexOf(command[0])) {
+        switch (validCommand.indexOf(command[0])) {
             // HELP command
             case 0 :
                 printHelp();
@@ -94,7 +89,7 @@ public class Cli {
         return 0;
     }
 
-    private int readMailboxComand() throws ParseException {
+    private int readMailboxCommand() {
         System.out.print(">");
         Scanner scanner = new Scanner(System.in);
         Pattern p = Pattern.compile("(\\w*)\\s*(\\w*)\\s*(.*)");
@@ -104,7 +99,7 @@ public class Cli {
 
         //System.out.println(m.group(1));
         if (!isValidMailbox(m.group(1))) return 1;
-        switch (validMailboxComands.indexOf(m.group(1))) {
+        switch (validMailboxCommands.indexOf(m.group(1))) {
             // HELP command
             case 0 :
                 printHelpMailbox();
@@ -158,11 +153,11 @@ public class Cli {
     }
 
     private boolean isValid(String[] command) {
-        return validComand.contains(command[0]);
+        return validCommand.contains(command[0]);
     }
 
     private boolean isValidMailbox(String command) {
-        return validMailboxComands.contains(command);
+        return validMailboxCommands.contains(command);
     }
 
     private void selectMailstore() {
@@ -189,13 +184,16 @@ public class Cli {
     private int logIn(String[] command) {
         if (command.length != 2) return 2;
         String username = command[1];
+        int exitcode;
         User user = mailSystem.getUserList()
                 .stream()
                 .filter(u -> username.equals(u.getUsername()))
                 .findFirst()
                 .orElse(null);
         if (user != null) {
-            return runMailbox(mailSystem.getMailbox(user));
+            exitcode = runMailbox(mailSystem.getMailbox(user));
+            if (exitcode == 1) exitcode--;
+            return exitcode;
         }
         return 2;
     }
