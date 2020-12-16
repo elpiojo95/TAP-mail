@@ -51,16 +51,24 @@ public class Cli {
 
     private void printHelp() {
         System.out.println("createuser <username> <Name> <DD/MM/YYYY>");
-        System.out.println("filter <predicate>\npredicates:\n\t\tcontains <word>\n\t\tlessthan <n>");
+        System.out.println("filter <predicate>");
+        System.out.println("\tpredicates:");
+        System.out.println("\t\tcontains <word>");
+        System.out.println("\t\tlessthan <n>");
         System.out.println("logas <username>");
+        System.out.println("exit");
     }
 
     private void printHelpMailbox() {
         System.out.println("send <to> -s \"subject\" -b \"body\"");
         System.out.println("update");
         System.out.println("list");
-        System.out.println("sort<Comparator>\nComparators:\n\t\tsender\n\t\ttime");
+        System.out.println("sort<Comparator>");
+        System.out.println("\tComparators:");
+        System.out.println("\t\tsender");
+        System.out.println("\t\ttime");
         System.out.println("filter<...>");
+        System.out.println("exit");
     }
 
     private int readCommand() throws ParseException {
