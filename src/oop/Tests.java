@@ -2,7 +2,6 @@ package oop;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class Tests {
     public static void main(String[] args) {
@@ -10,9 +9,15 @@ public class Tests {
         MemoryMailStore memory = new MemoryMailStore();
         MailSystem mailSystem = new MailSystem(memory);
         System.out.println("----Start testing MailSystem----");
-        Mailbox mbleo = mailSystem.createUser("Leo","Leandro", new Date(1995, Calendar.SEPTEMBER,7));
-        Mailbox mbmimi = mailSystem.createUser("Mimi","Miriam", new Date(1999, Calendar.JULY,22));
-        Mailbox mbjordi = mailSystem.createUser("JordiPtoAmo", "Leandro", new Date(2010, Calendar.SEPTEMBER, 14));
+        Calendar leoBirth = Calendar.getInstance();
+        leoBirth.set(1995, Calendar.SEPTEMBER,7);
+        Calendar mimiBirth = Calendar.getInstance();
+        mimiBirth.set(1999, Calendar.JULY,22);
+        Calendar jordiBirth = Calendar.getInstance();
+        jordiBirth.set(2010, Calendar.SEPTEMBER, 14);
+        Mailbox mbleo = mailSystem.createUser("Leo","Leandro",leoBirth);
+        Mailbox mbmimi = mailSystem.createUser("Mimi","Miriam",mimiBirth);
+        Mailbox mbjordi = mailSystem.createUser("JordiPtoAmo", "Leandro", jordiBirth);
 
         mbleo.send("Leo", "to me", "recordatorio no ser tonto");
         mbleo.send("JordiPtoAmo","Prueba3","holi");

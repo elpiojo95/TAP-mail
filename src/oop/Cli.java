@@ -150,8 +150,12 @@ public class Cli {
         newCommand = Arrays.copyOfRange(command,3,command.length);
         for (String s : newCommand) {
             if (s.matches(p)){
-                Date date=new SimpleDateFormat("dd/MM/yyyy").parse(s);
-                mailSystem.createUser(command[1],name,date);
+                Calendar cal = Calendar.getInstance();
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                cal.setTime(dateFormat.parse(s));
+
+                mailSystem.createUser(command[1],name, cal);
                 return 0;
             }else {
                 name = name.concat(" "+s);

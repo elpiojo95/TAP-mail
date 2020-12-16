@@ -16,7 +16,7 @@ public class MailSystem {
         messageList = new ArrayList<>();
     }
 
-    public Mailbox createUser(String username, String name, Date birthDate){
+    public Mailbox createUser(String username, String name, Calendar birthDate){
         User user = new User(username, name, birthDate);
         userList.add(user);
         Mailbox mbox = new Mailbox(user, mStore);
@@ -93,7 +93,9 @@ public class MailSystem {
     }
 
     public List<Message> bornBefore(int year){
-        Date yearDate = new Date(year, Calendar.DECEMBER,31);
+        //Date yearDate = new Date(year, Calendar.DECEMBER,31);
+        Calendar yearDate = Calendar.getInstance();
+        yearDate.set(year, Calendar.DECEMBER,31);
         List<User> bornsortedlist = new ArrayList<>();
         List<Message> messageBeforeList = new ArrayList<>();
         userList.stream().filter((User u) -> u.getBirthDate().before(yearDate)).forEach(bornsortedlist::add);
