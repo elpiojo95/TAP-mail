@@ -137,7 +137,7 @@ public class Cli {
             case 5 :
                 return filterUserMailbox(m.group(2), m.group(3));
             //EXIT case
-            case 6 : return run();
+            case 6 : return 1;
             default: return 2;
         }
         return 0;
@@ -161,6 +161,7 @@ public class Cli {
     }
 
     private int filter(String[] command){
+        mailSystem.getMessageList();
         if (command[1].equals("contains")){
             System.out.println(mailSystem.filterPerWord(command[2]));
         }else if (command[1].equals("lessthan")){
@@ -250,8 +251,6 @@ public class Cli {
         return 0;
     }
     private int filterUserMailbox(String command1,String command2){
-        System.out.println("g2: "+command1);
-        System.out.println("g3: "+command2);
         if (command1.equals("subject")){
             System.out.println(userMailbox.filter(MessageUtils.filterSubject(command2)));
         }else if (command1.equals("sender")){

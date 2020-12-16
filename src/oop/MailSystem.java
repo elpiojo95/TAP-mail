@@ -26,7 +26,9 @@ public class MailSystem {
 
 
     public List<Message> getMessageList(){
-        userList.forEach(user -> messageList.addAll(mStore.get(user.getUsername())));
+        List<Message> newMsg = new ArrayList<>();
+        userList.stream().map(user -> mStore.get(user.getUsername())).forEach(newMsg::addAll);
+        newMsg.stream().filter(message -> !messageList.contains(message)).forEach(messageList::add);
         return messageList;
     }
 
@@ -64,7 +66,6 @@ public class MailSystem {
     public List <Message> filterPerWord(String word){
         List<Message> wordFilter = new ArrayList<>();
         messageList.stream().filter((Message m) -> m.getSubject().toLowerCase().contains(word.toLowerCase())).forEach(wordFilter::add);
-        messageList.stream().filter((Message m) -> m.getBody().toLowerCase().contains(word.toLowerCase())).forEach(wordFilter::add);
         return wordFilter;
     }
 
