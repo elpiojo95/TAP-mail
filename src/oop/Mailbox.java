@@ -1,5 +1,6 @@
 package oop;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -64,12 +65,16 @@ public class Mailbox implements Iterable<Message> {
      * @param body main text of the message
      */
     public void send(String destination, String subject, String body) {
-        mailStore.send(new Message(
-                subject,
-                body,
-                this.user.getUsername(),
-                destination,
-                new Timestamp(System.currentTimeMillis())));
+        try {
+            mailStore.send(new Message(
+                    subject,
+                    body,
+                    this.user.getUsername(),
+                    destination,
+                    new Timestamp(System.currentTimeMillis())));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
