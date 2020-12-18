@@ -1,6 +1,7 @@
 package oop;
 
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -17,18 +18,20 @@ public class Cli {
     Mailbox userMailbox = null;
     // TO-DO repasar las exceptions
     public Cli() {
-        mailSystem = new MailSystem(new MemoryMailStore());
+        mailSystem = new MailSystem(new FileMailStore(new File ("mailStore.txt")));
     }
 
     public int run() {
         System.out.println("\tWelcome to MyMailApp");
         // start test
-        String[] command = {"createuser", "elpiojo", "Leo", "07/09/1995"};
-        String[] command1 = {"createuser", "mimi", "Miriam", "22/07/1992"};
+        String[] command = {"createuser", "Leo", "Leo", "07/09/1995"};
+        String[] command1 = {"createuser", "mimi", "Miriam", "22/07/1999"};
+        String[] command2 = {"createuser", "JordiPtoAmo", "Jordi", "26/02/1992"};
 
         try {
             createUser(command);
             createUser(command1);
+            createUser(command2);
         } catch (ParseException e) {
             e.printStackTrace();
         }

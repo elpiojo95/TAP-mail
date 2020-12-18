@@ -60,7 +60,7 @@ public class Mailbox implements Iterable<Message> {
     /**
      * Send a message to another user
      * returns the message created
-     * @param destination username of de receiver
+     * @param destination username of the receiver
      * @param subject topic of the message
      * @param body main text of the message
      */
