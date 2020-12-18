@@ -26,13 +26,12 @@ public class User {
         return birthDate;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
                 ", name='" + name + '\'' +
-                ", birthDate=" + birthDate.getTime() +
+                ", birthDate=" + birthDate +
                 '}';
     }
 }
