@@ -1,13 +1,14 @@
 package oop;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class User {
     private String username;
     private String name;
-    private Date birthDate;
+    private Calendar birthDate;
 
-    public User(String username, String name, Date birthDate) {
+    public User(String username, String name, Calendar birthDate) {
         this.username = username;
         this.name = name;
         this.birthDate = birthDate;
@@ -21,7 +22,17 @@ public class User {
         return name;
     }
 
-    public Date getBirthDate() {
+    public Calendar getBirthDate() {
         return birthDate;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate.getTime() +
+                '}';
     }
 }
