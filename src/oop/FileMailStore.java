@@ -22,7 +22,6 @@ public class FileMailStore implements MailStore{
     public void send(Message msg) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
-            //System.out.println(msg.getSubject());
             writer.write(msg.getReceiver()+";"+msg.getSender()+";"+msg.getSubject()+";"+msg.getBody()+";"+msg.getCreationTime()+";\n");
             writer.close();
         } catch (IOException e) {

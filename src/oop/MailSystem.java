@@ -39,7 +39,12 @@ public class MailSystem {
         return userList;
     }
 
-    /*FILTER MESSAGES GLOBALY NOT IMPLEMENTED*/
+    public Mailbox getMailbox(User user) {
+        return mailboxesList.stream()
+                .filter(mailbox -> mailbox.getUser().equals(user))
+                .findFirst()
+                .orElse(null);
+    }
 
     public List<Message> filter(java.util.function.Predicate<Message> predicate){
         ArrayList<Message> list = new ArrayList<>();
@@ -60,6 +65,22 @@ public class MailSystem {
         messageList.stream().filter((Message m) -> m.getSubject().toLowerCase().contains(subject.toLowerCase())).forEach(subjectSorted::add);
         return subjectSorted;
     }
+
+    public List <Message> filterPerWord(String word){
+        List<Message> wordFilter = new ArrayList<>();
+        messageList.stream().filter((Message m) -> m.getSubject().toLowerCase().contains(word.toLowerCase())).forEach(wordFilter::add);
+        return wordFilter;
+    }
+
+    public List <Message> filterPerNumWords(int n){
+        List<Message> lessNWords = new ArrayList<>();
+        for (Message message : messageList) {
+            if (n > message.getBody().split("[\\w]+").length){
+                lessNWords.add(message);
+            }
+        }
+        return lessNWords;
+    }
     
     public int wordCounterByName(String name){
         int result = 0;
@@ -68,8 +89,21 @@ public class MailSystem {
         userList.stream().filter((User u) -> u.getName().toLowerCase().contains(name.toLowerCase())).forEach(usersNamed::add);
         usersNamed.forEach(user -> messageList.stream().filter((Message m) -> m.getSender().toLowerCase().contains(user.getUsername().toLowerCase())).forEach(messageUsersNameList::add));
 
-    /*COUNT THE WORDS OF ALL MESSAGES OF USERS WITH X NAME*/
+        for (Message message : messageUsersNameList) {
+            result = result + message.getBody().split("[\\w]+").length;
+        }
+        return result;
+    }
 
-    /*MESSAGES FROM USERS BORN BEFORE X YEAR*/
+    public List<Message> bornBefore(int year){
+        //Date yearDate = new Date(year, Calendar.DECEMBER,31);
+        Calendar yearDate = Calendar.getInstance();
+        yearDate.set(year, Calendar.DECEMBER,31);
+        List<User> bornsortedlist = new ArrayList<>();
+        List<Message> messageBeforeList = new ArrayList<>();
+        userList.stream().filter((User u) -> u.getBirthDate().before(yearDate)).forEach(bornsortedlist::add);
+        bornsortedlist.forEach(user -> messageList.stream().filter((Message m) -> m.getReceiver().toLowerCase().contains(user.getUsername().toLowerCase())).forEach(messageBeforeList::add));
+        return messageBeforeList;
+    }
 
 }
