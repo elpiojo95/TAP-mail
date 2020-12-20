@@ -1,0 +1,6 @@
+mimi;alego23;Esto es un Subject alego23;Esto es un BODY alego23 -> mimi;2020-12-18 11:05:31.000;
+mimi;elpiojo;Esto es un Subject elpiojo;Esto es un BODY elpiojo -> mimi;2020-12-20 17:05:31.187;
+elpiojo;erryck;Esto es un Subject elpiojo;Esto es un BODY erryck -> elpiojo;2020-12-17 17:05:31.187;
+alego23;mimi;Esto es un Subject mimi;Esto es un BODY mimi -> alego23;2020-12-16 14:30:31.187;
+mimi;alego23;Esto es un Subject alego23;Esto es un BODY alego23 -> mimi;2020-12-10 11:05:31.000;
+mimi;elpiojo;Esto es un Subject elpiojo;Esto es un BODY elpiojo -> mimi;2020-12-1 17:05:31.187;
