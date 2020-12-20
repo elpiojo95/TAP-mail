@@ -9,8 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Cli {
-    MailStore mailStore;
-
     static List<String> validCommand = List.of("help", "createuser", "filter", "logas", "exit");
     static List<String> validMailboxCommands = List.of("help", "send", "update", "list", "sort", "filter", "exit");
     static MailSystem mailSystem;
@@ -106,7 +104,7 @@ public class Cli {
         Pattern p = Pattern.compile("(\\w*)\\s*(\\w*)\\s*(.*)");
         String s = scanner.nextLine();
         Matcher m = p.matcher(s);
-        m.find();
+        if(!m.find()) return 2;
 
         if (!isValidMailbox(m.group(1))) return 1;
         switch (validMailboxCommands.indexOf(m.group(1))) {
@@ -174,26 +172,7 @@ public class Cli {
         return validMailboxCommands.contains(command);
     }
 
-    private void selectMailstore() {
-        System.out.println("1. Memory system\n" +
-                "2. File system");
-        Scanner scanner = new Scanner(System.in);
-        boolean validInteger = false;
-        int option = 0;
-        while (!validInteger) {
-            try {
-                option= scanner.nextInt();
-                if (option==1 || option==2) validInteger = true;
-            } catch (InputMismatchException e) {
-                scanner.nextLine();
-            }
-        }
-        switch (option) {
-            case 1 -> mailStore = new MemoryMailStore();
-            case 2 -> mailStore = new FileMailStore();
-            default -> mailStore = new FileMailStore();
-        }
-    }
+    private void selectMailstore() { }
 
     private int logIn(String[] command) {
         if (command.length != 2) return 2;
@@ -219,7 +198,7 @@ public class Cli {
         }else return 2;
         Pattern p = Pattern.compile("-s (.*) -b (.*)");
         Matcher m = p.matcher(command2);
-        m.find();
+        if(!m.find()) return 2;
         String subject = m.group(1);
         String body= m.group(2);
         userMailbox.send(destination,subject, body);
