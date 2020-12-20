@@ -14,9 +14,9 @@ public class MailSystem {
 
     public MailSystem(MailStore mailStore){
         mStore = mailStore;
+        messageList = mStore.getAll();
         userList = new ArrayList<>();
         mailboxesList = new ArrayList<>();
-        messageList = new ArrayList<>();
     }
 
     public Mailbox createUser(String username, String name, Calendar birthDate){
@@ -27,11 +27,7 @@ public class MailSystem {
         return mbox;
     }
 
-
     public List<Message> getMessageList(){
-        List<Message> newMsg = new ArrayList<>();
-        userList.stream().map(user -> mStore.get(user.getUsername())).forEach(newMsg::addAll);
-        newMsg.stream().filter(message -> !messageList.contains(message)).forEach(messageList::add);
         return messageList;
     }
 

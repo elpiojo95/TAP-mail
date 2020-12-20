@@ -19,6 +19,12 @@ public class FileMailStore implements MailStore{
         this.file = file;
     }
 
+    public FileMailStore(MemoryMailStore memoryMailStore) {
+        this.file = new File("mailStore.txt");
+        memoryMailStore.getAll().forEach(this::send);
+    }
+
+    @Override
     public void send(Message msg) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(file,true));
@@ -29,6 +35,7 @@ public class FileMailStore implements MailStore{
         }
     }
 
+    @Override
     public List<Message> get(String username){
         List<Message> list =new ArrayList<>();
         try {
@@ -44,6 +51,27 @@ public class FileMailStore implements MailStore{
                    list.add(msg);
                }
                line= reader.readLine();
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Message> getAll() {
+        List<Message> list =new ArrayList<>();
+        try {
+            BufferedReader reader=new BufferedReader(new FileReader(file));
+            String line= reader.readLine();
+            while (line!=null){
+                String[] param = line.split(";");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+                Date parsedDate = dateFormat.parse(param[4]);
+                Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+                Message msg = new Message(param[2], param[3], param[1], param[0], timestamp);
+                list.add(msg);
+                line= reader.readLine();
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();

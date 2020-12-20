@@ -21,22 +21,13 @@ public class Cli {
         mailSystem = new MailSystem(new FileMailStore(new File ("mailStore.txt")));
     }
 
+    public Cli(String path) {
+        mailSystem = new MailSystem(new FileMailStore(new File(path)));
+    }
+
     public int run() {
         System.out.println("\tWelcome to MyMailApp");
-        // start test
-        String[] command = {"createuser", "Leo", "Leo", "07/09/1995"};
-        String[] command1 = {"createuser", "mimi", "Miriam", "22/07/1999"};
-        String[] command2 = {"createuser", "JordiPtoAmo", "Jordi", "26/02/1992"};
 
-        try {
-            createUser(command);
-            createUser(command1);
-            createUser(command2);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        // end test
         int exitCode = 0;
         try {
             exitCode = readCommand();
@@ -76,7 +67,7 @@ public class Cli {
         System.out.println("\t\tsender");
         System.out.println("\t\ttime");
         System.out.println("filter<predicate>");
-         System.out.println("\tPredicates:");
+        System.out.println("\tPredicates:");
         System.out.println("\t\tsubject<word>");
         System.out.println("\t\tsender<username>");
         System.out.println("exit");
@@ -117,7 +108,6 @@ public class Cli {
         Matcher m = p.matcher(s);
         m.find();
 
-        //System.out.println(m.group(1));
         if (!isValidMailbox(m.group(1))) return 1;
         switch (validMailboxCommands.indexOf(m.group(1))) {
             // HELP command
@@ -168,7 +158,6 @@ public class Cli {
     }
 
     private int filter(String[] command){
-        mailSystem.getMessageList();
         if (command[1].equals("contains")){
             System.out.println(mailSystem.filterPerWord(command[2]));
         }else if (command[1].equals("lessthan")){
