@@ -6,8 +6,8 @@ import java.util.Date;
 import java.util.function.Predicate;
 
 public class MessageUtils {
-    public static Predicate<Message> filterSender(String username) {
-        return (Message m) -> m.getSender().equals(username);
+    public static Predicate<Message> filterSender(User sender) {
+        return (Message m) -> m.getSender().equals(sender);
     }
 
     public static Predicate<Message> filterSubject(String string) {

@@ -36,7 +36,7 @@ public class FileMailStore implements MailStore{
     }
 
     @Override
-    public List<Message> get(String username){
+    public List<Message> get(User username){
         List<Message> list =new ArrayList<>();
         try {
             BufferedReader reader=new BufferedReader(new FileReader(file));

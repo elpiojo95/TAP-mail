@@ -192,10 +192,12 @@ public class Cli {
     }
 
     private int send(String command1, String command2) {
-        String destination;
-        if (mailSystem.getUserList().stream().anyMatch(user -> user.getUsername().equals(command1))){
-            destination = command1;
-        }else return 2;
+        User destination = mailSystem.getUserList()
+                .stream()
+                .filter(user -> user.getUsername().equals(command1))
+                .findFirst()
+                .orElse(null);
+        if (destination == null) return 2;
         Pattern p = Pattern.compile("-s (.*) -b (.*)");
         Matcher m = p.matcher(command2);
         if(!m.find()) return 2;
@@ -229,7 +231,11 @@ public class Cli {
         if (command1.equals("subject")){
             System.out.println(userMailbox.filter(MessageUtils.filterSubject(command2)));
         }else if (command1.equals("sender")){
-            System.out.println(userMailbox.filter(MessageUtils.filterSender(command2)));
+            System.out.println(userMailbox.filter(MessageUtils.filterSender(mailSystem.getUserList()
+                    .stream()
+                    .filter(user -> user.getUsername().equals(command1))
+                    .findFirst()
+                    .orElse(null))));
         } else return 2;
         return 0;
     }

@@ -1,9 +1,8 @@
 package oop;
 
 import java.util.Calendar;
-import java.util.Date;
 
-public class User {
+public class User implements Comparable<User> {
     private String username;
     private String name;
     private Calendar birthDate;
@@ -33,5 +32,10 @@ public class User {
                 ", name='" + name + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
+    }
+
+    @Override
+    public int compareTo(User otherUser) {
+        return this.username.compareTo(otherUser.getUsername());
     }
 }

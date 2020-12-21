@@ -37,7 +37,7 @@ public class Mailbox implements Iterable<Message> {
      * Updates the message list in the mailbox
      */
     public void update(){
-        this.messageList = mailStore.get(this.user.getUsername());
+        this.messageList = mailStore.get(this.user);
     }
 
     /**
@@ -64,12 +64,12 @@ public class Mailbox implements Iterable<Message> {
      * @param subject topic of the message
      * @param body main text of the message
      */
-    public void send(String destination, String subject, String body) {
+    public void send(User destination, String subject, String body) {
         try {
             mailStore.send(new Message(
                     subject,
                     body,
-                    this.user.getUsername(),
+                    this.user,
                     destination,
                     new Timestamp(System.currentTimeMillis())));
         } catch (IOException e) {
@@ -83,7 +83,7 @@ public class Mailbox implements Iterable<Message> {
      * @return messageList new message list sorted
      */
     public ArrayList<Message> sorted(Comparator<Message> comparator) {
-        ArrayList<Message> l = new ArrayList<>(mailStore.get(this.user.getUsername()));
+        ArrayList<Message> l = new ArrayList<>(mailStore.get(this.user));
         l.sort(comparator);
         return l;
     }
@@ -94,7 +94,7 @@ public class Mailbox implements Iterable<Message> {
      * @param username username of the sender to filter
      * @return messageList new messageList filtered by the sender
      */
-    public ArrayList<Message> filterSender(String username) {
+    public ArrayList<Message> filterSender(User username) {
         return this.filter(MessageUtils.filterSender(username));
     }
 
@@ -116,7 +116,7 @@ public class Mailbox implements Iterable<Message> {
      */
     public ArrayList<Message> filter(java.util.function.Predicate<Message> predicate) {
         ArrayList<Message> list = new ArrayList<>();
-        mailStore.get(this.user.getUsername())
+        mailStore.get(this.user)
                 .stream()
                 .filter(predicate)
                 .forEach(list::add);

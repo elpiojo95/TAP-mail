@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface MailStore {
     void send (Message msg) throws IOException;
-    List<Message> get (String username);
+    List<Message> get (User username);
     List<Message> getAll ();
 }

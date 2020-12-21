@@ -5,11 +5,11 @@ import java.sql.Timestamp;
 public class Message {
     private String subject;
     private String body;
-    private String sender;
-    private String receiver;
+    private User sender;
+    private User receiver;
     private Timestamp creationTime;
 
-    public Message(String subject, String body, String sender, String receiver, Timestamp creationTime) {
+    public Message(String subject, String body, User sender, User receiver, Timestamp creationTime) {
         this.subject = subject;
         this.body = body;
         this.sender = sender;
@@ -21,7 +21,7 @@ public class Message {
         return subject;
     }
 
-    public String getSender() {
+    public User getSender() {
         return sender;
     }
 
@@ -29,7 +29,7 @@ public class Message {
         return body;
     }
 
-    public String getReceiver() {
+    public User getReceiver() {
         return receiver;
     }
 

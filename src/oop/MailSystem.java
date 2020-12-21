@@ -82,8 +82,20 @@ public class MailSystem {
         int result = 0;
         List<User> usersNamed = new ArrayList<>();
         List<Message> messageUsersNameList = new ArrayList<>();
-        userList.stream().filter((User u) -> u.getName().toLowerCase().contains(name.toLowerCase())).forEach(usersNamed::add);
-        usersNamed.forEach(user -> messageList.stream().filter((Message m) -> m.getSender().toLowerCase().contains(user.getUsername().toLowerCase())).forEach(messageUsersNameList::add));
+        userList.stream()
+                .filter((User u) ->
+                        u.getName()
+                        .toLowerCase()
+                        .contains(name.toLowerCase())
+                ).forEach(usersNamed::add);
+
+        usersNamed.forEach(user -> messageList.stream()
+                .filter((Message m) -> m.getSender()
+                        .getUsername()
+                        .toLowerCase()
+                        .contains(user.getUsername().toLowerCase())
+                ).forEach(messageUsersNameList::add)
+        );
 
         for (Message message : messageUsersNameList) {
             result = result + message.getBody().split("[\\w]+").length;
@@ -97,8 +109,18 @@ public class MailSystem {
         yearDate.set(year, Calendar.DECEMBER,31);
         List<User> bornsortedlist = new ArrayList<>();
         List<Message> messageBeforeList = new ArrayList<>();
-        userList.stream().filter((User u) -> u.getBirthDate().before(yearDate)).forEach(bornsortedlist::add);
-        bornsortedlist.forEach(user -> messageList.stream().filter((Message m) -> m.getReceiver().toLowerCase().contains(user.getUsername().toLowerCase())).forEach(messageBeforeList::add));
+        userList.stream()
+                .filter((User u) ->
+                        u.getBirthDate()
+                        .before(yearDate)
+                ).forEach(bornsortedlist::add);
+        bornsortedlist.forEach(user -> messageList.stream()
+                .filter((Message m) -> m.getReceiver()
+                        .getUsername()
+                        .toLowerCase()
+                        .contains(user.getUsername().toLowerCase())
+                ).forEach(messageBeforeList::add)
+        );
         return messageBeforeList;
     }
 

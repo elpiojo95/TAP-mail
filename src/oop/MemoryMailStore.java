@@ -13,9 +13,9 @@ public class MemoryMailStore implements MailStore{
     }
 
     @Override
-    public List<Message> get(String username) {
+    public List<Message> get(User username) {
         ArrayList<Message> list = new ArrayList<>();
-        messageList.stream().filter((Message m) -> m.getReceiver().toLowerCase().contains(username.toLowerCase())).forEach(list::add);
+        messageList.stream().filter((Message m) -> m.getReceiver().equals(username)).forEach(list::add);
         return list;
     }
 
