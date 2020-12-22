@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public class MessageUtils {
     public static Predicate<Message> filterSender(User sender) {
-        return (Message m) -> m.getSender().equals(sender);
+        return (Message m) -> m.getSender().getUsername().equals(sender.getUsername());
     }
 
     public static Predicate<Message> filterSubject(String string) {

@@ -16,11 +16,11 @@ public class Cli {
     Mailbox userMailbox = null;
     // TO-DO repasar las exceptions
     public Cli() {
-        mailSystem = new MailSystem(new FileMailStore(new File ("mailStore.txt")));
+        mailSystem = new MailSystem(new FileMailStore());
     }
 
     public Cli(String path) {
-        mailSystem = new MailSystem(new FileMailStore(new File(path)));
+        mailSystem = new MailSystem(new FileMailStore(path));
     }
 
     public int run() {
@@ -231,11 +231,13 @@ public class Cli {
         if (command1.equals("subject")){
             System.out.println(userMailbox.filter(MessageUtils.filterSubject(command2)));
         }else if (command1.equals("sender")){
+
             System.out.println(userMailbox.filter(MessageUtils.filterSender(mailSystem.getUserList()
                     .stream()
-                    .filter(user -> user.getUsername().equals(command1))
+                    .filter(user -> user.getUsername().equals(command2))
                     .findFirst()
                     .orElse(null))));
+
         } else return 2;
         return 0;
     }

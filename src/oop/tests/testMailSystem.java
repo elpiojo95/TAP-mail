@@ -20,7 +20,7 @@ public class testMailSystem {
 
     @Before
     public void Before() {
-        mailStore = new FileMailStore(new File("mailStore.txt"));
+        mailStore = new FileMailStore();
         mailSystem = new MailSystem(mailStore);
         //createUser
         userBirth = Calendar.getInstance();

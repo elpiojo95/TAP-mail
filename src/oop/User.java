@@ -30,7 +30,7 @@ public class User implements Comparable<User> {
         return "User{" +
                 "username='" + username + '\'' +
                 ", name='" + name + '\'' +
-                ", birthDate=" + birthDate +
+                ", birthDate=" + birthDate.getTime().toString() +
                 '}';
     }
 
