@@ -1,6 +1,8 @@
-mimi;alego23;Esto es un Subject alego23;Esto es un BODY alego23 -> mimi;2020-12-18 11:05:31.000;
-mimi;elpiojo;Esto es un Subject elpiojo;Esto es un BODY elpiojo -> mimi;2020-12-20 17:05:31.187;
-elpiojo;erryck;Esto es un Subject elpiojo;Esto es un BODY erryck -> elpiojo;2020-12-17 17:05:31.187;
-alego23;mimi;Esto es un Subject mimi;Esto es un BODY mimi -> alego23;2020-12-16 14:30:31.187;
-mimi;alego23;Esto es un Subject alego23;Esto es un BODY alego23 -> mimi;2020-12-10 11:05:31.000;
-mimi;elpiojo;Esto es un Subject elpiojo;Esto es un BODY elpiojo -> mimi;2020-12-1 17:05:31.187;
+mimi#Miriam Gertrudix#1999/Jul/22;elpiojo#Leandro Gomez#1995/Sep/07;prueba1;body;2020-12-22 10:51:53.701;
+alego#Josh#1995/Aug/24;elpiojo#Leandro Gomez#1995/Sep/07;holi amigui;no sabem quan vas neixer;2020-12-22 10:52:14.586;
+elpiojo#Leandro Gomez#1995/Sep/07;mimi#Miriam Gertrudix#1999/Jul/22;gato;tienes el minino mas cuqui del mundo;2020-12-22 10:52:59.056;
+alego#Josh#1995/Aug/24;mimi#Miriam Gertrudix#1999/Jul/22;joshua;whats up nigga;2020-12-22 10:53:47.566;
+elpiojo#Leandro Gomez#1995/Sep/07;alego#Josh#1995/Aug/24;eres tonto;y no lo sabes;2020-12-22 10:54:19.907;
+mimi#Miriam Gertrudix#1999/Jul/22;alego#Josh#1995/Aug/24;holii;tu me caes bien;2020-12-22 10:55:07.087;
+elpiojo#Leandro Gomez#1995/Sep/07;mimi#Miriam Gertrudix#1999/Jul/22;nuevo mensaje;body like a king;2020-12-22 11:22:03.162;
+elpiojo#Leandro Gomez#1995/Sep/07;mimi#Miriam Gertrudix#1999/Jul/22;nuevo msg;he creado este msg solo para ti;2020-12-22 11:23:54.664;

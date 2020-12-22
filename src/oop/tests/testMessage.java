@@ -7,16 +7,24 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class testMessage {
     private Message message;
     private Timestamp time;
+    private User sender;
+    private User receiver;
 
     @Before
     public void Before() {
         time = new Timestamp(System.currentTimeMillis());
-      message = new Message("subject", "body", "elpiojo","mimi", time);
+        Calendar leoBirth = new GregorianCalendar(1995, Calendar.SEPTEMBER,7);
+        sender =  new User("elpiojo", "Leo", leoBirth);
+        Calendar mimiBirth = new GregorianCalendar(1999, Calendar.JULY,22);
+        receiver =  new User("mimi", "Miriam", mimiBirth);
+        message = new Message("subject", "body", sender, receiver, time);
     }
 
     @Test
@@ -25,7 +33,7 @@ public class testMessage {
     }
     @Test
     public void getSender() {
-        Assert.assertEquals(message.getSender(),"elpiojo");
+        Assert.assertEquals(message.getSender(),sender);
     }
 
     @Test
@@ -35,7 +43,7 @@ public class testMessage {
 
     @Test
     public void getReceiver() {
-        Assert.assertEquals(message.getReceiver(),"mimi");
+        Assert.assertEquals(message.getReceiver(),receiver);
     }
 
     @Test

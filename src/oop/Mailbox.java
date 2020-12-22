@@ -83,7 +83,7 @@ public class Mailbox implements Iterable<Message> {
      * @return messageList new message list sorted
      */
     public ArrayList<Message> sorted(Comparator<Message> comparator) {
-        ArrayList<Message> l = new ArrayList<>(mailStore.get(this.user));
+        ArrayList<Message> l = new ArrayList<>(messageList);
         l.sort(comparator);
         return l;
     }
@@ -116,7 +116,7 @@ public class Mailbox implements Iterable<Message> {
      */
     public ArrayList<Message> filter(java.util.function.Predicate<Message> predicate) {
         ArrayList<Message> list = new ArrayList<>();
-        mailStore.get(this.user)
+        messageList
                 .stream()
                 .filter(predicate)
                 .forEach(list::add);

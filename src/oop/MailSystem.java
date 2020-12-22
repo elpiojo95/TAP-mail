@@ -28,6 +28,7 @@ public class MailSystem {
     }
 
     public List<Message> getMessageList(){
+        messageList = mStore.getAll();
         return messageList;
     }
 

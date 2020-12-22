@@ -22,28 +22,28 @@ public class Tests {
         Mailbox mbmimi = mailSystem.createUser("Mimi","Miriam",mimiBirth);
         Mailbox mbjordi = mailSystem.createUser("JordiPtoAmo", "Leandro", jordiBirth);
 
-        mbleo.send("Leo", "to me", "recordatorio no ser tonto");
-        mbleo.send("JordiPtoAmo","Prueba3","holi");
-        mbleo.send("Mimi","Prueba1","hola que tal bro");
+        /*mbleo.send(mbleo.getUser(), "to me", "recordatorio no ser tonto");
+        mbleo.send(mbjordi.getUser(),"Prueba3","holi");
+        mbleo.send(mbmimi.getUser(),"Prueba1","hola que tal bro");
 
-        mbmimi.send("Leo", "Prueba2", "Cute red panda");
-        mbmimi.send("JordiPtoAmo","Prueba4","heey");
-        mbmimi.send("Mimi","to myself","soy tonta y me gusta serlo");
+        mbmimi.send(mbleo.getUser(), "Prueba2", "Cute red panda");
+        mbmimi.send(mbjordi.getUser(),"Prueba4","heey");
+        mbmimi.send(mbmimi.getUser(),"to myself","soy tonta y me gusta serlo");
 
-        mbjordi.send("Leo", "Prueba5", "Leo bon examen");
-        mbjordi.send("JordiPtoAmo","per mi","prueba de words");
-        mbjordi.send("Mimi","alumna exemplar","segueix aixi crack");
+        mbjordi.send(mbleo.getUser(), "Prueba5", "Leo bon examen");
+        mbjordi.send(mbjordi.getUser(),"per mi","prueba de words");
+        mbjordi.send(mbmimi.getUser(),"alumna exemplar","segueix aixi crack");*/
 
 
 
         System.out.println("----Messages in the system----");
         System.out.println(mailSystem.getMessageList());
         System.out.println("--------");
-        System.out.println("----Users in the System----");
+        /*System.out.println("----Users in the System----");
         System.out.println(mailSystem.getUserList());
         System.out.println("--------");
         System.out.println("----filter by sender----");
-        System.out.println(mailSystem.filter(MessageUtils.filterSender("JordiPtoAmo")));
+        System.out.println(mailSystem.filter(MessageUtils.filterSender(mbjordi.getUser())));
         System.out.println("--------");
         System.out.println("----filter word ----");
         System.out.println(mailSystem.filterPerWord("prueba"));
@@ -70,6 +70,6 @@ public class Tests {
         mbleo.update();
         System.out.println("\n\n----message list leo----");
         System.out.println(mbleo.messageList());
-        System.out.println("--------");
+        System.out.println("--------");*/
     }
 }
