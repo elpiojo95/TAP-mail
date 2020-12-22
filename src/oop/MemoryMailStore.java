@@ -13,14 +13,20 @@ public class MemoryMailStore implements MailStore{
     }
 
     @Override
-    public List<Message> get(User username) {
+    public List<Message> getMessages(User username) {
         ArrayList<Message> list = new ArrayList<>();
         messageList.stream().filter((Message m) -> m.getReceiver().equals(username)).forEach(list::add);
         return list;
     }
 
     @Override
-    public List<Message> getAll() {
+    public List<Message> getAllMessages() {
         return messageList;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        //to-do
+        return null;
     }
 }

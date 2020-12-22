@@ -184,7 +184,7 @@ public class Cli {
                 .findFirst()
                 .orElse(null);
         if (user != null) {
-            exitcode = runMailbox(mailSystem.getMailbox(user));
+            exitcode = runMailbox(new Mailbox(user,mailSystem.getmStore()));
             if (exitcode == 1) exitcode--;
             return exitcode;
         }

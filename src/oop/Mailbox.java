@@ -37,7 +37,7 @@ public class Mailbox implements Iterable<Message> {
      * Updates the message list in the mailbox
      */
     public void update(){
-        this.messageList = mailStore.get(this.user);
+        this.messageList = mailStore.getMessages(this.user);
     }
 
     /**
