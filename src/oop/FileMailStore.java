@@ -103,6 +103,7 @@ public class FileMailStore implements MailStore{
                 }
                 line= reader.readLine();
             }
+            reader.close();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -137,6 +138,7 @@ public class FileMailStore implements MailStore{
                 list.add(msg);
                 line= reader.readLine();
             }
+            reader.close();
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -171,6 +173,7 @@ public class FileMailStore implements MailStore{
                         user.getUsername().equals(sender.getUsername())).findFirst().isEmpty()) userList.add(sender);
                 line = reader.readLine();
             }
+            reader.close();
         } catch(Exception e){
             e.printStackTrace();
         }
