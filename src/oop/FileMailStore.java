@@ -26,7 +26,7 @@ public class FileMailStore implements MailStore{
         month.put("Dec", Calendar.DECEMBER);
     }
 
-    public FileMailStore(){
+    public FileMailStore() {
         this.file = new File("mailStore.txt");
         try {
             file.createNewFile();
@@ -35,7 +35,7 @@ public class FileMailStore implements MailStore{
         }
     }
 
-    public FileMailStore(String path){
+    public FileMailStore(String path) {
         this.file = new File(path);
         try {
             file.createNewFile();
@@ -72,7 +72,7 @@ public class FileMailStore implements MailStore{
     }
 
     @Override
-    public List<Message> getMessages(User username){
+    public List<Message> getMessages(User username) {
         List<Message> list =new ArrayList<>();
         try {
             BufferedReader reader=new BufferedReader(new FileReader(file));

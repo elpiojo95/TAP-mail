@@ -7,14 +7,16 @@ import java.util.List;
 
 public class MailSystem {
     private MailStore mStore;
+    private List<User> userList;
 
     public MailSystem(MailStore mailStore){
         mStore = mailStore;
+        userList = mStore.getAllUsers();
     }
 
     public Mailbox createUser(String username, String name, Calendar birthDate){
         User user = new User(username, name, birthDate);
-        mStore.getAllUsers().add(user);
+        userList.add(user);
         return new Mailbox(user, mStore);
     }
 
@@ -23,7 +25,7 @@ public class MailSystem {
     }
 
     public List<User> getUserList() {
-        return mStore.getAllUsers();
+        return userList;
     }
 
     public List<Message> filter(java.util.function.Predicate<Message> predicate){
@@ -37,7 +39,7 @@ public class MailSystem {
     }
 
     public int average(){
-        return ((mStore.getAllMessages().size()) / (mStore.getAllUsers().size()));
+        return ((mStore.getAllMessages().size()) / (userList.size()));
     }
 
     public List <Message> filterPerSubject(String subject){
@@ -66,7 +68,7 @@ public class MailSystem {
         int result = 0;
         List<User> usersNamed = new ArrayList<>();
         List<Message> messageUsersNameList = new ArrayList<>();
-        mStore.getAllUsers().stream()
+        userList.stream()
                 .filter((User u) ->
                         u.getName()
                         .toLowerCase()
@@ -93,7 +95,7 @@ public class MailSystem {
         yearDate.set(year, Calendar.DECEMBER,31);
         List<User> bornsortedlist = new ArrayList<>();
         List<Message> messageBeforeList = new ArrayList<>();
-        mStore.getAllUsers().stream()
+        userList.stream()
                 .filter((User u) ->
                         u.getBirthDate()
                         .before(yearDate)
@@ -110,5 +112,15 @@ public class MailSystem {
 
     public MailStore getmStore() {
         return mStore;
+    }
+
+
+    public int swap() {
+        if (mStore instanceof FileMailStore) {
+            mStore = new MemoryMailStore((FileMailStore) mStore);
+        }else {
+            mStore = new FileMailStore((MemoryMailStore) mStore);
+        }
+        return 0;
     }
 }

@@ -9,12 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Cli {
-    static List<String> validCommand = List.of("help", "createuser", "filter", "logas", "exit");
+    static List<String> validCommand = List.of("help", "createuser", "filter", "logas", "exit", "swap");
     static List<String> validMailboxCommands = List.of("help", "send", "update", "list", "sort", "filter", "exit");
     static MailSystem mailSystem;
 
     Mailbox userMailbox = null;
-    // TO-DO repasar las exceptions
     public Cli() {
         mailSystem = new MailSystem(new FileMailStore());
     }
@@ -93,6 +92,7 @@ public class Cli {
                 return logIn(command);
             // EXIT command
             case 4 : return 1;
+            case 5 : return mailSystem.swap();
             default: return 2;
         }
         return 0;
