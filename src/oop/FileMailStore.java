@@ -48,7 +48,9 @@ public class FileMailStore implements MailStore{
     public FileMailStore(MemoryMailStore memoryMailStore) {
         this.file = new File("mailStore.txt");
         try {
-            file.createNewFile();
+            if (!file.createNewFile()){
+                file.delete();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
