@@ -1,42 +1,62 @@
 package oop;
 
-
-import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A class that represents a command line interface for interacting with the MailSystem
+ * @author Leandro F. Gomez Racca
+ * @author Miriam Gertrudix Pedrola
+ */
 public class Cli {
     static List<String> validCommand = List.of("help", "createuser", "filter", "logas", "exit", "swap");
     static List<String> validMailboxCommands = List.of("help", "send", "update", "list", "sort", "filter", "exit");
     static MailSystem mailSystem;
 
     Mailbox userMailbox = null;
+
+    /**
+     * Class constructor
+     */
     public Cli() {
         mailSystem = new MailSystem(new FileMailStore());
     }
 
+    /**
+     * Class constructor
+     * @param path Path of file which data is loaded
+     */
     public Cli(String path) {
         mailSystem = new MailSystem(new FileMailStore(path));
     }
 
+    /**
+     * Run the command line interface
+     * @return exit code
+     * 1 - All fine
+     */
     public int run() {
         System.out.println("\tWelcome to MyMailApp");
 
         int exitCode = 0;
-        try {
-            exitCode = readCommand();
-        while (exitCode == 0)
-            exitCode = readCommand();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        while (exitCode == 0) exitCode = readCommand();
         return exitCode;
     }
 
-    public int runMailbox(Mailbox mailbox) {
+    /**
+     * Run a Mailbox, cli runs into a Mailbox interface for user commands
+     * @param mailbox User mailbox
+     * @return exit code
+     *      * 1 - All fine
+     */
+    private int runMailbox(Mailbox mailbox) {
         System.out.println("\tWelcome to MyMailApp " + mailbox.getUser().getName());
         userMailbox = mailbox;
         int exitCode = 0;
@@ -45,6 +65,9 @@ public class Cli {
         return exitCode;
     }
 
+    /**
+     * Print help message for cli
+     */
     private void printHelp() {
         System.out.println("createuser <username> <Name> <DD/MM/YYYY>");
         System.out.println("filter <predicate>");
@@ -52,9 +75,13 @@ public class Cli {
         System.out.println("\t\tcontains <word>");
         System.out.println("\t\tlessthan <n>");
         System.out.println("logas <username>");
+        System.out.println("swap");
         System.out.println("exit");
     }
 
+    /**
+     * Print help message for Mailbox cli
+     */
     private void printHelpMailbox() {
         System.out.println("send <to> -s \"subject\" -b \"body\"");
         System.out.println("update");
@@ -71,7 +98,11 @@ public class Cli {
         
     }
 
-    private int readCommand() throws ParseException {
+    /**
+     * Read a command from System.in and execute that command
+     * @return exitcode 0 - All fine 1 - finished 2 - error
+     */
+    private int readCommand() {
         System.out.print("$ ");
         Scanner scanner = new Scanner(System.in);
         String[] command = scanner.nextLine().split(" ");
@@ -98,6 +129,10 @@ public class Cli {
         return 0;
     }
 
+    /**
+     * Read a Mailbox command from System.in and execute that command
+     * @return exitcode 0 - All fine 1 - finished 2 - error
+     */
     private int readMailboxCommand() {
         System.out.print(">");
         Scanner scanner = new Scanner(System.in);
@@ -134,7 +169,12 @@ public class Cli {
         return 0;
     }
 
-    private int createUser(String[] command) throws ParseException {
+    /**
+     * Method that parse a given command and create a new user
+     * @param command to parse
+     * @return exitcode 0 - All fine 2 - error
+     */
+    private int createUser(String[] command){
         String p = "\\d{2}/\\d{2}/\\d{4}";
         String name = command[2];
         String[] newCommand;
@@ -144,7 +184,11 @@ public class Cli {
                 Calendar cal = Calendar.getInstance();
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                cal.setTime(dateFormat.parse(s));
+                try {
+                    cal.setTime(dateFormat.parse(s));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 mailSystem.createUser(command[1],name, cal);
                 return 0;
@@ -154,6 +198,7 @@ public class Cli {
         }
         return 2;
     }
+
 
     private int filter(String[] command){
         if (command[1].equals("contains")){
@@ -171,8 +216,6 @@ public class Cli {
     private boolean isValidMailbox(String command) {
         return validMailboxCommands.contains(command);
     }
-
-    private void selectMailstore() { }
 
     private int logIn(String[] command) {
         if (command.length != 2) return 2;
@@ -241,5 +284,4 @@ public class Cli {
         } else return 2;
         return 0;
     }
-
 }
