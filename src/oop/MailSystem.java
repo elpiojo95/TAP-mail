@@ -2,6 +2,7 @@ package oop;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -50,14 +51,14 @@ public class MailSystem {
 
     public List <Message> filterPerWord(String word){
         List<Message> wordFilter = new ArrayList<>();
-        mStore.getAllMessages().stream().filter((Message m) -> m.getSubject().toLowerCase().contains(word.toLowerCase())).forEach(wordFilter::add);
+        mStore.getAllMessages().stream().filter((Message m) ->( m.getSubject().toLowerCase().contains(word.toLowerCase()))|| m.getBody().toLowerCase().contains(word.toLowerCase()) ).forEach(wordFilter::add);
         return wordFilter;
     }
 
     public List <Message> filterPerNumWords(int n){
         List<Message> lessNWords = new ArrayList<>();
         for (Message message : mStore.getAllMessages()) {
-            if (n > message.getBody().split("[\\w]+").length){
+            if (n >= message.getBody().split("[\\w]+").length){
                 lessNWords.add(message);
             }
         }
@@ -66,47 +67,23 @@ public class MailSystem {
     
     public int wordCounterByName(String name){
         int result = 0;
-        List<User> usersNamed = new ArrayList<>();
         List<Message> messageUsersNameList = new ArrayList<>();
-        userList.stream()
-                .filter((User u) ->
-                        u.getName()
+        mStore.getAllMessages().stream()
+                .filter(message -> message.getSender()
+                        .getName()
                         .toLowerCase()
-                        .contains(name.toLowerCase())
-                ).forEach(usersNamed::add);
-
-        usersNamed.forEach(user -> mStore.getAllMessages().stream()
-                .filter((Message m) -> m.getSender()
-                        .getUsername()
-                        .toLowerCase()
-                        .contains(user.getUsername().toLowerCase())
-                ).forEach(messageUsersNameList::add)
-        );
-
+                        .contains(name.toLowerCase()))
+                .forEach(messageUsersNameList::add);
         for (Message message : messageUsersNameList) {
-            result = result + message.getBody().split("[\\w]+").length;
+            result = result + (message.getBody().split(" ")).length;
         }
         return result;
     }
 
     public List<Message> bornBefore(int year){
-        //Date yearDate = new Date(year, Calendar.DECEMBER,31);
-        Calendar yearDate = Calendar.getInstance();
-        yearDate.set(year, Calendar.DECEMBER,31);
-        List<User> bornsortedlist = new ArrayList<>();
+        Calendar yearDate = new GregorianCalendar(year, Calendar.DECEMBER,31 );
         List<Message> messageBeforeList = new ArrayList<>();
-        userList.stream()
-                .filter((User u) ->
-                        u.getBirthDate()
-                        .before(yearDate)
-                ).forEach(bornsortedlist::add);
-        bornsortedlist.forEach(user -> mStore.getAllMessages().stream()
-                .filter((Message m) -> m.getReceiver()
-                        .getUsername()
-                        .toLowerCase()
-                        .contains(user.getUsername().toLowerCase())
-                ).forEach(messageBeforeList::add)
-        );
+        mStore.getAllMessages().stream().filter(message -> message.getReceiver().getBirthDate().before(yearDate)).forEach(messageBeforeList::add);
         return messageBeforeList;
     }
 
