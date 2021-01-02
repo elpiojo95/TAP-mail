@@ -11,9 +11,9 @@ import java.util.*;
  */
 public class Mailbox implements Iterable<Message> {
 
-    private User user;
-    private List<Message> messageList = new ArrayList<>();
-    private MailStore mailStore;
+    protected User user;
+    protected List<Message> messageList = new ArrayList<>();
+    protected MailStore mailStore;
 
     /**
      * Class constructor
