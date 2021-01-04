@@ -10,7 +10,6 @@ import java.util.List;
 public class EnhancedMailbox extends Mailbox {
     private List<Observer> spamFilters = new ArrayList<>();
     private List<Message> spamList = new ArrayList<>();
-    private Mailbox instance = new Mailbox(this.getUser(),this.mailStore);
 
 
     /**
@@ -31,7 +30,6 @@ public class EnhancedMailbox extends Mailbox {
         for (Observer observer : spamFilters) {
             observer.update(this);
         }
-
     }
 
     public List<Message> spamList() {
@@ -45,6 +43,4 @@ public class EnhancedMailbox extends Mailbox {
             this.messageList.remove(msg);
         }
     }
-
-
 }
