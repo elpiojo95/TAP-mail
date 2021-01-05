@@ -17,10 +17,10 @@ public class Mailbox implements Iterable<Message> {
 
     /**
      * Class constructor
-     * @param username username
+     * @param user user
      */
-    public Mailbox(User username, MailStore mailStore) {
-        this.user = username;
+    public Mailbox(User user, MailStore mailStore) {
+        this.user = user;
         this.mailStore = mailStore;
     }
 
