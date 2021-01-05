@@ -110,7 +110,7 @@ public class testMailSystem {
     @Test
     public void  average(){
         System.out.println("average() testing ");
-        assertEquals(1, mailSystem.average());
+        assertEquals(1, mailSystem.average(),0);
         System.out.println("average() tested ");
     }
 
