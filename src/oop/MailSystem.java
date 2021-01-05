@@ -100,9 +100,10 @@ public class MailSystem {
     public int swap() {
         if (mStore instanceof FileMailStore) {
             mStore = new MemoryMailStore((FileMailStore) mStore);
-        }else {
+        }else if (mStore instanceof MemoryMailStore) {
             mStore = new FileMailStore((MemoryMailStore) mStore);
         }
+        else return 1;
         return 0;
     }
 }
