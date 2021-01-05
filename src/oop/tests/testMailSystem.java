@@ -103,7 +103,7 @@ public class testMailSystem {
     @Test
     public void  NumberMessages(){
         System.out.println("NumberMessages() testing ");
-        assertEquals(2, mailSystem.NumberMessages());
+        assertEquals(2, mailSystem.numberMessages());
         System.out.println("NumberMessages() tested ");
     }
 

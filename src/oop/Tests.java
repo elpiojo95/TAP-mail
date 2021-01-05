@@ -1,75 +1,110 @@
 package oop;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Tests {
     public static void main(String[] args) {
         System.out.println("----Start----");
-        //File f= new File ("mailStore.txt");
-        //MemoryMailStore memory = new MemoryMailStore();
-        FileMailStore file = new FileMailStore();
-        //MailSystem mailSystem = new MailSystem(memory);
-        MailSystem mailSystem = new MailSystem(file);
-        System.out.println("----Start testing MailSystem----");
-        Calendar leoBirth = Calendar.getInstance();
-        leoBirth.set(1995, Calendar.SEPTEMBER,7);
-        Calendar mimiBirth = Calendar.getInstance();
-        mimiBirth.set(1999, Calendar.JULY,22);
-        Calendar jordiBirth = Calendar.getInstance();
-        jordiBirth.set(2010, Calendar.SEPTEMBER, 14);
-        Mailbox mbleo = mailSystem.createUser("Leo","Leandro",leoBirth);
-        Mailbox mbmimi = mailSystem.createUser("Mimi","Miriam",mimiBirth);
-        Mailbox mbjordi = mailSystem.createUser("JordiPtoAmo", "Leandro", jordiBirth);
+        System.out.println("----Initializing----");
+        MailStore memoryMailStore = new MemoryMailStore();
+        MailSystem mailSystem = new MailSystem(memoryMailStore);
+        User user1 = new User("user1", "name1", new GregorianCalendar(2000, Calendar.JANUARY, 1));
+        User user2 = new User("user2", "name1", new GregorianCalendar(1999, Calendar.JANUARY, 1));
+        User user3 = new User("user3", "name3", new GregorianCalendar(2001, Calendar.JANUARY, 1));
+        mailSystem.createUser(user1);
+        mailSystem.createUser(user2);
+        mailSystem.createUser(user3);
+        Mailbox mbox1 = new Mailbox(user1, memoryMailStore);
+        Mailbox mbox2 = new Mailbox(user2, memoryMailStore);
+        Mailbox mbox3 = new Mailbox(user3, memoryMailStore);
 
-        /*mbleo.send(mbleo.getUser(), "to me", "recordatorio no ser tonto");
-        mbleo.send(mbjordi.getUser(),"Prueba3","holi");
-        mbleo.send(mbmimi.getUser(),"Prueba1","hola que tal bro");
+        System.out.println("----Sending some messages----");
 
-        mbmimi.send(mbleo.getUser(), "Prueba2", "Cute red panda");
-        mbmimi.send(mbjordi.getUser(),"Prueba4","heey");
-        mbmimi.send(mbmimi.getUser(),"to myself","soy tonta y me gusta serlo");
+        try {
+            mbox1.send(user2, "subject", "body");
+            Thread.sleep(200);
+            mbox2.send(user1, "subject filter", "body");
+            Thread.sleep(200);
+            mbox3.send(user1, "subject2 filter", "body");
+            Thread.sleep(200);
+            mbox2.send(user1, "subject3", "body");
+            Thread.sleep(200);
+            mbox2.send(user1, "subject4", "body");
+            Thread.sleep(200);
+            mbox2.send(user3, "group", "body");
+            Thread.sleep(200);
+            mbox3.send(user1, "group", "body");
+            Thread.sleep(200);
+            mbox1.send(user3, "group", "body");
 
-        mbjordi.send(mbleo.getUser(), "Prueba5", "Leo bon examen");
-        mbjordi.send(mbjordi.getUser(),"per mi","prueba de words");
-        mbjordi.send(mbmimi.getUser(),"alumna exemplar","segueix aixi crack");*/
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+        System.out.println("----Listing messages by creation time----");
+        mbox1.update();
+        System.out.println(
+                mbox1.sorted((o1, o2) ->
+                        o2.getCreationTime().compareTo(o1.getCreationTime()))
+        );
+        System.out.println("----Listing messages by sender----");
+        System.out.println(
+                mbox1.sorted(Comparator.comparing(Message::getSender))
+        );
+        System.out.println("----Filtering subject contains \"filter\"----");
+        System.out.println(
+                mbox1.filterSubject("filter")
+        );
+        System.out.println("----Filtering sender==\"user3\"----");
+        System.out.println(
+                mbox1.filterSender(user3)
+        );
+        System.out.println("----Filtering GLOBALLY----");
+        System.out.println("----Filtering subject is a single word----");
+        System.out.println(mailSystem.filter(message ->
+                        1 == message.getSubject().split(" ").length
+                )
+        );
+        System.out.println("----Filtering sender was born after year 2000----");
+        System.out.println(mailSystem.filter(message ->
+                0 < message.getSender()
+                        .getBirthDate()
+                        .compareTo(new GregorianCalendar(2000, Calendar.DECEMBER, 31))
+                )
+        );
+        System.out.println("----Count messages in system----");
+        System.out.println(
+                mailSystem.numberMessages()
+        );
+        System.out.println("----Average number of messages per user----");
+        System.out.println(
+                mailSystem.average()
+        );
+        System.out.println("----Group messages per subject----");
+        System.out.println(
+                mailSystem.getMessageList().stream()
+                .collect(
+                        Collectors.groupingBy(
+                                message -> message.getSubject()
+                        )
+                )
+        );
+        System.out.println("----Count words of all messages by Name name3----");
+        System.out.println(
+                mailSystem.wordCounterByName("name3")
+        );
+        System.out.println("----Count words of all messages by Name name1----");
+        System.out.println(
+                mailSystem.wordCounterByName("name1")
+        );
+        System.out.println("----Messages received by users born before 2000----");
+        System.out.println(
+                mailSystem.bornBefore(2000)
+        );
+        System.out.println("----Swap to file implementation----");
+        mailSystem.swap();
+        System.out.println("----Finish----");
 
-
-        System.out.println("----Messages in the system----");
-        System.out.println(mailSystem.getMessageList());
-        System.out.println("--------");
-        /*System.out.println("----Users in the System----");
-        System.out.println(mailSystem.getUserList());
-        System.out.println("--------");
-        System.out.println("----filter by sender----");
-        System.out.println(mailSystem.filter(MessageUtils.filterSender(mbjordi.getUser())));
-        System.out.println("--------");
-        System.out.println("----filter word ----");
-        System.out.println(mailSystem.filterPerWord("prueba"));
-        System.out.println("--------");
-        System.out.println("----filter num word ----");
-        System.out.println(mailSystem.filterPerNumWords(4));
-        System.out.println("--------");
-        System.out.println("----number of messages----");
-        System.out.println(mailSystem.NumberMessages());
-        System.out.println("--------");
-        System.out.println("----Average----");
-        System.out.println(mailSystem.average());
-        System.out.println("--------");
-        System.out.println("----group per PRUEBA----");
-        System.out.println(mailSystem.filterPerSubject("Prueba"));
-        System.out.println("--------");
-        System.out.println("----Count words users named Leandro----");
-        System.out.println(mailSystem.wordCounterByName("Leandro"));
-        System.out.println("--------");
-        System.out.println("----messages users borned before 2000----");
-        System.out.println(mailSystem.bornBefore(2000));
-        System.out.println("--------");
-
-        mbleo.update();
-        System.out.println("\n\n----message list leo----");
-        System.out.println(mbleo.messageList());
-        System.out.println("--------");*/
     }
 }

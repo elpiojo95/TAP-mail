@@ -40,12 +40,12 @@ public class MailSystem {
         return list;
     }
 
-    public int NumberMessages(){
+    public int numberMessages(){
         return mStore.getAllMessages().size();
     }
 
-    public int average(){
-        return ((mStore.getAllMessages().size()) / (userList.size()));
+    public double average(){
+        return ((double)(mStore.getAllMessages().size()) / (userList.size()));
     }
 
     public List <Message> filterPerSubject(String subject){
@@ -86,7 +86,7 @@ public class MailSystem {
     }
 
     public List<Message> bornBefore(int year){
-        Calendar yearDate = new GregorianCalendar(year, Calendar.DECEMBER,31 );
+        Calendar yearDate = new GregorianCalendar(year, Calendar.JANUARY,1 );
         List<Message> messageBeforeList = new ArrayList<>();
         mStore.getAllMessages().stream().filter(message -> message.getReceiver().getBirthDate().before(yearDate)).forEach(messageBeforeList::add);
         return messageBeforeList;

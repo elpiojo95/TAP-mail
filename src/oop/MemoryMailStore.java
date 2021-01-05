@@ -44,7 +44,7 @@ public class MemoryMailStore implements MailStore{
         messageList.stream()
                 .map(Message::getSender)
                 .forEach(set::add);
-
-        return List.copyOf(set);
+        List<User> list = new ArrayList<>(set);
+        return list;
     }
 }
