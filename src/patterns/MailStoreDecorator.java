@@ -2,7 +2,7 @@ package patterns;
 
 import oop.MailStore;
 
-abstract class MailStoreDecorator implements MailStore {
+public abstract class MailStoreDecorator implements MailStore {
     protected MailStore mailStore;
     protected BodyEncriptionStrategy bodyStrategy;
 
