@@ -85,9 +85,7 @@ public class Tests {
         System.out.println(
                 mailSystem.getMessageList().stream()
                 .collect(
-                        Collectors.groupingBy(
-                                message -> message.getSubject()
-                        )
+                        Collectors.groupingBy(Message::getSubject)
                 )
         );
         System.out.println("----Count words of all messages by Name name3----");
@@ -105,6 +103,5 @@ public class Tests {
         System.out.println("----Swap to file implementation----");
         mailSystem.swap();
         System.out.println("----Finish----");
-
     }
 }
