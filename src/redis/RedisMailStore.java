@@ -9,6 +9,10 @@ import java.util.List;
 public class RedisMailStore {
     private static Jedis jedis = null;
 
+    public RedisMailStore() {
+        getInstance();
+    }
+
     public static Jedis getInstance() {
         if (jedis == null) {
             jedis = new Jedis("localhost", 6379);
