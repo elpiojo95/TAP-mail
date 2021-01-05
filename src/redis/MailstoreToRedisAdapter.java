@@ -6,9 +6,9 @@ import oop.User;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +23,22 @@ public class MailstoreToRedisAdapter implements MailStore {
     Pattern usernamePattern = Pattern.compile("username='([\\w]*)'.");
     Pattern namePattern = Pattern.compile(" name='([\\w ]*)'.");
     Pattern birthPattern = Pattern.compile(" birthDate=([\\w-: ]*)");
+    public static Map<String, Integer> month;
+    static {
+        month = new HashMap<>();
+        month.put("Jan", Calendar.JANUARY);
+        month.put("Feb", Calendar.FEBRUARY);
+        month.put("Mar", Calendar.MARCH);
+        month.put("Apr", Calendar.APRIL);
+        month.put("May", Calendar.MAY);
+        month.put("Jun", Calendar.JUNE);
+        month.put("Jul", Calendar.JULY);
+        month.put("Aug", Calendar.AUGUST);
+        month.put("Sep", Calendar.SEPTEMBER);
+        month.put("Oct", Calendar.OCTOBER);
+        month.put("Nov", Calendar.NOVEMBER);
+        month.put("Dec", Calendar.DECEMBER);
+    }
 
     public MailstoreToRedisAdapter(RedisMailStore redisMailStore) {
         this.redisMailStore = redisMailStore;
@@ -82,9 +98,18 @@ public class MailstoreToRedisAdapter implements MailStore {
 
         m = creationTimePattern.matcher(messageString);
         m.find();
+        //Per provar
+        Timestamp creationTime = null;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            Date parsedDate = dateFormat.parse(m.group(1));
+            creationTime = new java.sql.Timestamp(parsedDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         //Timestamp creationTime = m.group(1);
 
-        Message msg = new Message(subject,body,sender,receiver,new Timestamp(0));
+        Message msg = new Message(subject,body,sender,receiver,creationTime);
         return msg;
     }
 
@@ -100,9 +125,11 @@ public class MailstoreToRedisAdapter implements MailStore {
 
         m = birthPattern.matcher(userString);
         m.find();
-        //Calendar birthdate = m.group(1);
+        //Per provar
+        String[] date = m.group(1).split(" ");
+        Calendar birthdate = new GregorianCalendar(Integer.parseInt(date[5]),month.get(date[1]), Integer.parseInt(date[2]));
 
-        User user = new User(username, name, new GregorianCalendar());
+        User user = new User(username, name, birthdate);
         return user;
     }
 }
