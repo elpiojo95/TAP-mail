@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 public class MailstoreToRedisAdapter implements MailStore {
 
     RedisMailStore redisMailStore;
-    Pattern subjectPattern = Pattern.compile("subject='([\\w]*)'");
-    Pattern bodyPattern = Pattern.compile("body='([\\w]*)'");
+    Pattern subjectPattern = Pattern.compile("subject='([\\w ]*)'");
+    Pattern bodyPattern = Pattern.compile("body='([\\w ]*)'");
     Pattern senderPattern = Pattern.compile("sender='User\\{([\\w=', :]*)}',");
     Pattern receiverPattern = Pattern.compile("receiver='User\\{([\\w=', :]*)}',");
     Pattern creationTimePattern = Pattern.compile("creationTime=([\\w-: .]*)");
