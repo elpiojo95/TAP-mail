@@ -21,6 +21,11 @@ public class MailSystem {
         return new Mailbox(user, mStore);
     }
 
+    public Mailbox createUser(User user){
+        userList.add(user);
+        return new Mailbox(user, mStore);
+    }
+
     public List<Message> getMessageList(){
         return mStore.getAllMessages();
     }
