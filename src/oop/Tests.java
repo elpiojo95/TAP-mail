@@ -4,6 +4,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Tests {
+    /**
+     * Test of OOP package
+     * @param args args
+     */
     public static void main(String[] args) {
         System.out.println("----Start----");
         System.out.println("----Initializing----");

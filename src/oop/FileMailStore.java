@@ -7,6 +7,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * Back-End storage based in file implementation
+ * @author Leandro F. Gomez Racca
+ * @author Miriam Gertrudix Pedrola
+ */
 public class FileMailStore implements MailStore{
     private File file;
     public static Map<String, Integer> month;
@@ -26,6 +31,9 @@ public class FileMailStore implements MailStore{
         month.put("Dec", Calendar.DECEMBER);
     }
 
+    /**
+     * Class constructor
+     */
     public FileMailStore() {
         this.file = new File("mailStore.txt");
         try {
@@ -35,6 +43,10 @@ public class FileMailStore implements MailStore{
         }
     }
 
+    /**
+     * Class constructor
+     * @param path file path
+     */
     public FileMailStore(String path) {
         this.file = new File(path);
         try {
@@ -44,7 +56,10 @@ public class FileMailStore implements MailStore{
         }
     }
 
-
+    /**
+     * Constructor based in MemoryMailStore
+     * @param memoryMailStore MemoryMailStore instance
+     */
     public FileMailStore(MemoryMailStore memoryMailStore) {
         this.file = new File("mailStore.txt");
         try {
@@ -57,6 +72,11 @@ public class FileMailStore implements MailStore{
         memoryMailStore.getAllMessages().forEach(this::send);
     }
 
+    /**
+     * Interface MailStore
+     * Send a mail to store it at file
+     * @param msg message to storage
+     */
     @Override
     public void send(Message msg) {
         try {
@@ -73,6 +93,12 @@ public class FileMailStore implements MailStore{
         }
     }
 
+    /**
+     * Interface MailStore
+     * Get the messages of certain receiver of the file
+     * @param username username of the receiver
+     * @return list of messages
+     */
     @Override
     public List<Message> getMessages(User username) {
         List<Message> list =new ArrayList<>();
@@ -110,6 +136,11 @@ public class FileMailStore implements MailStore{
         return list;
     }
 
+    /**
+     * Interface MailStore
+     * Get all the messages of the system of the file
+     * @return list of messages
+     */
     @Override
     public List<Message> getAllMessages() {
      List<Message> list =new ArrayList<>();
@@ -145,6 +176,11 @@ public class FileMailStore implements MailStore{
         return list;
     }
 
+    /**
+     * Interface MailStore
+     * get all the users of the system of the file
+     * @return list of users
+     */
     @Override
     public List<User> getAllUsers() {
         List<User> userList = new ArrayList<>();

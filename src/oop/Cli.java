@@ -200,6 +200,13 @@ public class Cli {
     }
 
 
+    /**
+     * method to filter the messages in two options
+     * contains: if the message contains the word
+     * lessthan: if the message have less than n words
+     * @param command command to execute
+     * @return exitcode 0 - All fine 2 - error
+     */
     private int filter(String[] command){
         if (command[1].equals("contains")){
             System.out.println(mailSystem.filterPerWord(command[2]));
@@ -209,14 +216,29 @@ public class Cli {
         return 0;
     }
 
+    /**
+     * Method to check that the command is valid
+     * @param command command
+     * @return exitcode 0 - All fine 2 - error
+     */
     private boolean isValid(String[] command) {
         return validCommand.contains(command[0]);
     }
 
+    /**
+     * Method to check that the command is valid
+     * @param command command
+     * @return exitcode 0 - All fine 2 - error
+     */
     private boolean isValidMailbox(String command) {
         return validMailboxCommands.contains(command);
     }
 
+    /**
+     * Method to log as a user in the userList
+     * @param command command
+     * @return exitcode 0 - All fine 2 - error
+     */
     private int logIn(String[] command) {
         if (command.length != 2) return 2;
         String username = command[1];
@@ -234,6 +256,12 @@ public class Cli {
         return 2;
     }
 
+    /**
+     * method to send a message to another mailbox
+     * @param command1 command
+     * @param command2 command
+     * @return exitcode 0 - All fine 2 - error
+     */
     private int send(String command1, String command2) {
         User destination = mailSystem.getUserList()
                 .stream()
@@ -251,17 +279,33 @@ public class Cli {
         return 0;
     }
 
+    /**
+     * method to update the user mailbox
+     * @return exitcode 0 - All fine 2 - error
+     */
     private int update(){
         System.out.println("Mailbox up of date");
         userMailbox.update();
         return 0;
 
     }
+
+    /**
+     * method to print the messages of the mailbox
+     * @return exitcode 0 - All fine 2 - error
+     */
     private int list(){
         System.out.println(userMailbox.messageList());
         return 0;
     }
 
+    /**
+     * method to sort the messages in two options
+     * sender: sort by sender username
+     * time: sort by message creationTime
+     * @param command command
+     * @return exitcode 0 - All fine 2 - error
+     */
     private int sort(String command){
         if (command.equals("sender")){
             System.out.println(userMailbox.sorted(Comparator.comparing(Message::getSender)));
@@ -270,6 +314,15 @@ public class Cli {
         } else return 2;
         return 0;
     }
+
+    /**
+     * method to sort the messages in two options
+     * sender: sort by sender username
+     * time: sort by message creationTime
+     * @param command1 command
+     * @param command2 command
+     * @return exitcode 0 - All fine 2 - error
+     */
     private int filterUserMailbox(String command1,String command2){
         if (command1.equals("subject")){
             System.out.println(userMailbox.filter(MessageUtils.filterSubject(command2)));
