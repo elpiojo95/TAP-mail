@@ -63,7 +63,7 @@ public class Message {
     }
 
     /**
-     * getter of crationTime
+     * getter of creationTime
      * @return Timestamp creationTime
      */
     public Timestamp getCreationTime() {

@@ -38,8 +38,8 @@ public class mainEncoding {
 
         System.out.println("---- DECORATOR: ----");
         FileMailStore file2 = new FileMailStore("Encoding.txt");
-        MailStoreDecorator cipher = new MailstoreCipherDecorator(file2);
-        MailStoreDecorator reverse = new MailstoreReverseDecorator(cipher);
+        MailStoreDecorator cipher = new MailStoreCipherDecorator(file2);
+        MailStoreDecorator reverse = new MailStoreReverseDecorator(cipher);
         MailSystem mailSystem2 = new MailSystem(reverse);
         User user1dec = new User("user1", "name1", new GregorianCalendar(2000, Calendar.JANUARY, 1));
         User user2dec = new User("user2", "name2", new GregorianCalendar(1999, Calendar.JANUARY, 1));

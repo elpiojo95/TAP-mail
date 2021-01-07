@@ -1,6 +1,5 @@
 package redis;
 
-import oop.MailStore;
 import oop.MailSystem;
 import patterns.EnhancedMailSystem;
 
@@ -10,16 +9,15 @@ import patterns.EnhancedMailSystem;
 public class MainFactory {
     public static void main(String[] args) {
         AbstractMailStoreFactory factory;
-        MailStore mailStore;
         MailSystem mailSystem;
 
         factory = new MemoryMailStoreFactory();
         mailSystem = new EnhancedMailSystem(factory.createMailStore());
-        System.out.println("Memory numberMessagesmail:\t" + mailSystem.numberMessages());
+        System.out.println("Memory numberMessages:\t" + mailSystem.numberMessages());
 
         factory = new FileMailStoreFactory();
         mailSystem = new EnhancedMailSystem(factory.createMailStore());
-        System.out.println("File numberMessagesmail:\t" + mailSystem.numberMessages());
+        System.out.println("File numberMessages:\t" + mailSystem.numberMessages());
 
         factory = new RedisMailStoreFactory();
         mailSystem = new EnhancedMailSystem(factory.createMailStore());

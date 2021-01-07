@@ -4,9 +4,9 @@ import oop.FileMailStore;
 import oop.MailStore;
 import oop.MemoryMailStore;
 import patterns.EnhancedMailSystem;
-import patterns.MailstoreCipherDecorator;
-import patterns.MailstoreReverseDecorator;
-import redis.MailstoreToRedisAdapter;
+import patterns.MailStoreCipherDecorator;
+import patterns.MailStoreReverseDecorator;
+import redis.MailStoreToRedisAdapter;
 import redis.RedisMailStore;
 
 import java.lang.reflect.InvocationTargetException;
@@ -36,9 +36,9 @@ public class ReflectingMailSystem extends EnhancedMailSystem {
         Object o = clazz.getConstructor().newInstance();
 
         if (o.getClass() == RedisMailStore.class) {
-            mailstore = new MailstoreToRedisAdapter((RedisMailStore) o);
+            mailstore = new MailStoreToRedisAdapter((RedisMailStore) o);
         } else if (o.getClass() == FileMailStore.class) {
-            mailstore = new MailstoreReverseDecorator(new MailstoreCipherDecorator((FileMailStore) o));
+            mailstore = new MailStoreReverseDecorator(new MailStoreCipherDecorator((FileMailStore) o));
         } else {
             mailstore = (MemoryMailStore) o;
         }

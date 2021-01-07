@@ -170,10 +170,9 @@ public class MailSystem {
      * getter of mailStore
      *
      */
-    public MailStore getmStore() {
+    public MailStore getStore() {
         return mStore;
     }
-
 
     /**
      * Swaps the mailStore Type, File Type to Memory or vice versa

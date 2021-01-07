@@ -1,8 +1,5 @@
 package oop;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.function.Predicate;
 
 /**
@@ -21,7 +18,7 @@ public class MessageUtils {
     }
 
     /**
-     * filters messega by sender name
+     * filters Message by sender name
      * @param username name of sender
      * @return predicate
      */

@@ -100,7 +100,7 @@ public class Cli {
 
     /**
      * Read a command from System.in and execute that command
-     * @return exitcode 0 - All fine 1 - finished 2 - error
+     * @return exitCode 0 - All fine 1 - finished 2 - error
      */
     private int readCommand() {
         System.out.print("$ ");
@@ -131,7 +131,7 @@ public class Cli {
 
     /**
      * Read a Mailbox command from System.in and execute that command
-     * @return exitcode 0 - All fine 1 - finished 2 - error
+     * @return exitCode 0 - All fine 1 - finished 2 - error
      */
     private int readMailboxCommand() {
         System.out.print(">");
@@ -172,7 +172,7 @@ public class Cli {
     /**
      * Method that parse a given command and create a new user
      * @param command to parse
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int createUser(String[] command){
         String p = "\\d{2}/\\d{2}/\\d{4}";
@@ -205,7 +205,7 @@ public class Cli {
      * contains: if the message contains the word
      * lessthan: if the message have less than n words
      * @param command command to execute
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int filter(String[] command){
         if (command[1].equals("contains")){
@@ -219,7 +219,7 @@ public class Cli {
     /**
      * Method to check that the command is valid
      * @param command command
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private boolean isValid(String[] command) {
         return validCommand.contains(command[0]);
@@ -228,7 +228,7 @@ public class Cli {
     /**
      * Method to check that the command is valid
      * @param command command
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private boolean isValidMailbox(String command) {
         return validMailboxCommands.contains(command);
@@ -237,21 +237,21 @@ public class Cli {
     /**
      * Method to log as a user in the userList
      * @param command command
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int logIn(String[] command) {
         if (command.length != 2) return 2;
         String username = command[1];
-        int exitcode;
+        int exitCode;
         User user = mailSystem.getUserList()
                 .stream()
                 .filter(u -> username.equals(u.getUsername()))
                 .findFirst()
                 .orElse(null);
         if (user != null) {
-            exitcode = runMailbox(new Mailbox(user,mailSystem.getmStore()));
-            if (exitcode == 1) exitcode--;
-            return exitcode;
+            exitCode = runMailbox(new Mailbox(user,mailSystem.getStore()));
+            if (exitCode == 1) exitCode--;
+            return exitCode;
         }
         return 2;
     }
@@ -260,7 +260,7 @@ public class Cli {
      * method to send a message to another mailbox
      * @param command1 command
      * @param command2 command
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int send(String command1, String command2) {
         User destination = mailSystem.getUserList()
@@ -281,7 +281,7 @@ public class Cli {
 
     /**
      * method to update the user mailbox
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int update(){
         System.out.println("Mailbox up of date");
@@ -292,7 +292,7 @@ public class Cli {
 
     /**
      * method to print the messages of the mailbox
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int list(){
         System.out.println(userMailbox.messageList());
@@ -304,7 +304,7 @@ public class Cli {
      * sender: sort by sender username
      * time: sort by message creationTime
      * @param command command
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int sort(String command){
         if (command.equals("sender")){
@@ -321,7 +321,7 @@ public class Cli {
      * time: sort by message creationTime
      * @param command1 command
      * @param command2 command
-     * @return exitcode 0 - All fine 2 - error
+     * @return exitCode 0 - All fine 2 - error
      */
     private int filterUserMailbox(String command1,String command2){
         if (command1.equals("subject")){

@@ -4,7 +4,6 @@ import oop.MailStore;
 import oop.Message;
 import oop.User;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +14,7 @@ import java.util.regex.Pattern;
 /**
  * adapt the mailStore to Redis with adapter pattern
  */
-public class MailstoreToRedisAdapter implements MailStore {
+public class MailStoreToRedisAdapter implements MailStore {
 
     RedisMailStore redisMailStore;
     Pattern subjectPattern = Pattern.compile("subject='([\\w ]*)'");
@@ -47,17 +46,16 @@ public class MailstoreToRedisAdapter implements MailStore {
      * Class constructor
      * @param redisMailStore redisMailStore instance
      */
-    public MailstoreToRedisAdapter(RedisMailStore redisMailStore) {
+    public MailStoreToRedisAdapter(RedisMailStore redisMailStore) {
         this.redisMailStore = redisMailStore;
     }
 
     /**
      * send message to the redis server
      * @param msg message to send
-     * @throws IOException
      */
     @Override
-    public void send(Message msg) throws IOException {
+    public void send(Message msg) {
         redisMailStore.send(msg);
     }
 
@@ -128,7 +126,7 @@ public class MailstoreToRedisAdapter implements MailStore {
 
         m = creationTimePattern.matcher(messageString);
         m.find();
-        //Per provar
+        //Per probar
         Timestamp creationTime = null;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -139,8 +137,7 @@ public class MailstoreToRedisAdapter implements MailStore {
         }
         //Timestamp creationTime = m.group(1);
 
-        Message msg = new Message(subject,body,sender,receiver,creationTime);
-        return msg;
+        return new Message(subject,body,sender,receiver,creationTime);
     }
 
     /**
@@ -163,7 +160,6 @@ public class MailstoreToRedisAdapter implements MailStore {
         String[] date = m.group(1).split(" ");
         Calendar birthdate = new GregorianCalendar(Integer.parseInt(date[5]),month.get(date[1]), Integer.parseInt(date[2]));
 
-        User user = new User(username, name, birthdate);
-        return user;
+        return new User(username, name, birthdate);
     }
 }

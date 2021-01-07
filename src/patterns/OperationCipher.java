@@ -13,12 +13,13 @@ import java.util.Base64;
 public class OperationCipher implements BodyEncryptionStrategy {
     private Cipher cipher;
     private java.security.Key aesKey;
-    private String key = "IWantToPassTAP12"; // 128 bit key
 
     /**
      * method to cipher the body of the message
      */
     public OperationCipher(){
+        // 128 bit key
+        String key = "IWantToPassTAP12";
         this.aesKey = new javax.crypto.spec.SecretKeySpec(key.getBytes(), "AES");
         try {
             this.cipher = Cipher.getInstance("AES");
@@ -45,7 +46,7 @@ public class OperationCipher implements BodyEncryptionStrategy {
     }
 
     /**
-     * method to decypt the body with cipher
+     * method to decrypt the body with cipher
      * @param bodyEncrypted body of the message ciphered
      * @return body of the message deciphered
      */

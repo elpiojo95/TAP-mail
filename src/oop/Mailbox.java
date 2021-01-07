@@ -41,8 +41,8 @@ public class Mailbox implements Iterable<Message> {
     }
 
     /**
-     * getter of messagelist
-     * @return messagelist
+     * getter of messageList
+     * @return messageList
      */
     public List<Message> messageList() {
         messageList.sort(Comparator.comparing(Message::getCreationTime));

@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Decorator pattern to cipher the body messages in the mailStore
+ * Decorator pattern to reverse the body message in the mailStore
  * @author Leandro F. Gomez Racca
  * @author Miriam Gertrudix Pedrola
  */
-public class MailstoreCipherDecorator extends MailStoreDecorator{
-    public MailstoreCipherDecorator(MailStore ms) {
+public class MailStoreReverseDecorator extends MailStoreDecorator{
+    public MailStoreReverseDecorator(MailStore ms) {
         super(ms);
-        bodyStrategy= new OperationCipher();
+        bodyStrategy= new OperationReverse();
     }
 
     /**
-     * Send the message to the storage but with the body ciphered
+     * Send the message to the storage but with the body reversed
      * @param msg message to send
      * @throws IOException file exception
      */
@@ -31,7 +31,7 @@ public class MailstoreCipherDecorator extends MailStoreDecorator{
     }
 
     /**
-     * gets the list of messages of the username but deciphered
+     * gets the list of messages of the username but reversed
      * @param username username
      * @return list of messages
      */
@@ -47,7 +47,7 @@ public class MailstoreCipherDecorator extends MailStoreDecorator{
     }
 
     /**
-     * gets the list of all messages of the system but deciphered
+     * gets the list of all messages of the system but reversed
      * @return list of messages
      */
     @Override
@@ -67,6 +67,8 @@ public class MailstoreCipherDecorator extends MailStoreDecorator{
      */
     @Override
     public List<User> getAllUsers() {
-       return mailStore.getAllUsers();
+        return mailStore.getAllUsers();
     }
+
+
 }

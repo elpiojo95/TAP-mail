@@ -27,7 +27,7 @@ public class OperationReverse implements BodyEncryptionStrategy {
     }
 
     /**
-     * method to decypt the body with reversing
+     * method to decrypt the body with reversing
      * @param bodyEncrypted body of the message reversed
      * @return body of the message
      */

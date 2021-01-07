@@ -15,7 +15,7 @@ public class MainRedis {
         System.out.println("----Initializing----");
 
         RedisMailStore redisMailStore = new RedisMailStore();
-        MailstoreToRedisAdapter adapter = new MailstoreToRedisAdapter(redisMailStore);
+        MailStoreToRedisAdapter adapter = new MailStoreToRedisAdapter(redisMailStore);
         MailSystem mailSystem = new EnhancedMailSystem(adapter);
         User user1 = new User("user1", "name1", new GregorianCalendar(2000, Calendar.JANUARY, 1));
         User user2 = new User("user2", "name1", new GregorianCalendar(1999, Calendar.JANUARY, 1));

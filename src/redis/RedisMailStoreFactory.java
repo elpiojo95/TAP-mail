@@ -14,6 +14,6 @@ public class RedisMailStoreFactory implements AbstractMailStoreFactory{
      */
     @Override
     public MailStore createMailStore() {
-        return new MailstoreToRedisAdapter(new RedisMailStore());
+        return new MailStoreToRedisAdapter(new RedisMailStore());
     }
 }

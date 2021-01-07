@@ -2,9 +2,7 @@ package patterns;
 
 import oop.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -48,7 +46,7 @@ public class EnhancedMailbox extends Mailbox {
     }
 
     /**
-     * Method to copy a list into spamlist and remove it from messageList
+     * Method to copy a list into spamList and remove it from messageList
      * @param list list of spam
      */
     public void copySpamList(List<Message> list){
