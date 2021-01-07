@@ -3,6 +3,9 @@ package redis;
 import oop.MailStore;
 import oop.MailSystem;
 
+/**
+ * Main to test factory pattern
+ */
 public class Main {
     public static void main(String[] args) {
         AbstractMailStoreFactory factory;

@@ -12,6 +12,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * adapt the mailStore to Redis with adapter pattern
+ */
 public class MailstoreToRedisAdapter implements MailStore {
 
     RedisMailStore redisMailStore;
@@ -40,15 +43,29 @@ public class MailstoreToRedisAdapter implements MailStore {
         month.put("Dec", Calendar.DECEMBER);
     }
 
+    /**
+     * Class constructor
+     * @param redisMailStore redisMailStore instance
+     */
     public MailstoreToRedisAdapter(RedisMailStore redisMailStore) {
         this.redisMailStore = redisMailStore;
     }
 
+    /**
+     * send message to the redis server
+     * @param msg message to send
+     * @throws IOException
+     */
     @Override
     public void send(Message msg) throws IOException {
         redisMailStore.send(msg);
     }
 
+    /**
+     * get messages for a certain user to de redis server
+     * @param user user receiver
+     * @return list of messages
+     */
     @Override
     public List<Message> getMessages(User user) {
         List<Message> list = new ArrayList<>();
@@ -58,6 +75,10 @@ public class MailstoreToRedisAdapter implements MailStore {
         return list;
     }
 
+    /**
+     * get all messages from the redis server
+     * @return list of messages
+     */
     @Override
     public List<Message> getAllMessages() {
         List<Message> list = new ArrayList<>();
@@ -67,6 +88,10 @@ public class MailstoreToRedisAdapter implements MailStore {
         return list;
     }
 
+    /**
+     * get all users from the redis server
+     * @return list of users
+     */
     @Override
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
@@ -79,6 +104,11 @@ public class MailstoreToRedisAdapter implements MailStore {
         return list;
     }
 
+    /**
+     * method to convert a string to Message instance
+     * @param messageString string with message parameters
+     * @return Message
+     */
     public Message toMessage(String messageString) {
         Matcher m = subjectPattern.matcher(messageString);
         m.find();
@@ -113,7 +143,11 @@ public class MailstoreToRedisAdapter implements MailStore {
         return msg;
     }
 
-
+    /**
+     * method to convert a string to User instance
+     * @param userString string with user parameters
+     * @return User
+     */
     public User toUser(String userString) {
         Matcher m = usernamePattern.matcher(userString);
         m.find();

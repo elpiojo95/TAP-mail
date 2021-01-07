@@ -4,6 +4,9 @@ import oop.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * test to check the redis package
+ */
 public class Test {
     public static void main(String[] args) {
         System.out.println("----Start----");
