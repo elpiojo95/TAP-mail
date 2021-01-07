@@ -4,14 +4,16 @@ import oop.FileMailStore;
 import oop.MailSystem;
 import oop.Mailbox;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * main to test the patterns package
+ */
 public class main {
     public static void main(String[] args) {
         FileMailStore file = new FileMailStore();
-        MailStoreDecorator cipher = new MailstoreChiperDecorator(file);
+        MailStoreDecorator cipher = new MailstoreCipherDecorator(file);
         MailStoreDecorator reverse = new MailstoreReverseDecorator(cipher);
         MailSystem mailSystem = new MailSystem(reverse);
         Calendar leoBirth = new GregorianCalendar(1995, Calendar.SEPTEMBER, 7);

@@ -3,9 +3,6 @@ package redis;
 import oop.FileMailStore;
 import oop.MailStore;
 import oop.MemoryMailStore;
-import patterns.MailStoreDecorator;
-import patterns.MailstoreChiperDecorator;
-import patterns.MailstoreReverseDecorator;
 
 public class MailStoreFactory {
     public MailStore getMailStore (String mailStoreType) {
