@@ -11,8 +11,15 @@ import java.util.List;
  * @author Miriam Gertrudix Pedrola
  */
 public class MailSystem {
-    private MailStore mStore;
-    private List<User> userList;
+    protected MailStore mStore;
+    protected List<User> userList;
+
+    /**
+     *  Class constructor
+     *
+     */
+    public MailSystem(){
+    }
 
     /**
      *  Class constructor
@@ -161,7 +168,7 @@ public class MailSystem {
 
     /**
      * getter of mailStore
-     * @return
+     *
      */
     public MailStore getmStore() {
         return mStore;
