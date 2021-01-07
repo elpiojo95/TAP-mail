@@ -15,10 +15,6 @@ import java.lang.reflect.Proxy;
 @Config(store = "redis.RedisMailStore", log = true)
 public class ReflectingMailSystem extends EnhancedMailSystem {
 
-    /**
-     * Class constructor
-     *
-     */
     public ReflectingMailSystem() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         super();
         super.mStore = (MailStore) Proxy.newProxyInstance(MailStoreInvocationHandler.class.getClassLoader(),
