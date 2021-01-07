@@ -6,7 +6,7 @@ import oop.MailSystem;
 /**
  * Main to test factory pattern
  */
-public class Main {
+public class MainFactory {
     public static void main(String[] args) {
         AbstractMailStoreFactory factory;
         MailStore mailStore;
