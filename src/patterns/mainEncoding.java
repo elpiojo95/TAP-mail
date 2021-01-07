@@ -12,7 +12,7 @@ public class mainEncoding {
     public static void main(String[] args) {
         System.out.println("---- NORMAL: ----");
         FileMailStore file = new FileMailStore("Normal.txt");
-        MailSystem mailSystem = new MailSystem(file);
+        EnhancedMailSystem mailSystem = new EnhancedMailSystem(file);
 
         User user1 = new User("user1", "name1", new GregorianCalendar(2000, Calendar.JANUARY, 1));
         User user2 = new User("user2", "name2", new GregorianCalendar(1999, Calendar.JANUARY, 1));

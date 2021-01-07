@@ -1,9 +1,6 @@
 package patterns;
 
-import oop.FileMailStore;
-import oop.MailSystem;
-import oop.Mailbox;
-import oop.User;
+import oop.*;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,15 +12,15 @@ public class mainSpam {
     public static void main(String[] args) {
 
         FileMailStore file = new FileMailStore("Spam.txt");
-        MailSystem mailSystem = new MailSystem(file);
+        EnhancedMailSystem mailSystem = new EnhancedMailSystem(file);
         //users
         User user1 = new User("user1", "name1", new GregorianCalendar(2000, Calendar.JANUARY, 1));
         User user2 = new User("spam", "name2", new GregorianCalendar(1999, Calendar.JANUARY, 1));
         User user3 = new User("user3", "name3", new GregorianCalendar(2001, Calendar.JANUARY, 1));
         //mailboxes
-        EnhancedMailbox mbox1 = new EnhancedMailbox(user1, file);
-        EnhancedMailbox mbox2 = new EnhancedMailbox(user2, file);
-        EnhancedMailbox mbox3 = new EnhancedMailbox(user3, file);
+        EnhancedMailbox mbox1 = mailSystem.createUser(user1);
+        EnhancedMailbox mbox2 = mailSystem.createUser(user2);
+        EnhancedMailbox mbox3 = mailSystem.createUser(user3);
 
         mbox1.send(user2, "subject", "body");
         mbox2.send(user1, "subject filter", "body");

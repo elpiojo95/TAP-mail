@@ -1,6 +1,8 @@
 package redis;
 
 import oop.*;
+import patterns.EnhancedMailSystem;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -14,7 +16,7 @@ public class MainRedis {
 
         RedisMailStore redisMailStore = new RedisMailStore();
         MailstoreToRedisAdapter adapter = new MailstoreToRedisAdapter(redisMailStore);
-        MailSystem mailSystem = new MailSystem(adapter);
+        MailSystem mailSystem = new EnhancedMailSystem(adapter);
         User user1 = new User("user1", "name1", new GregorianCalendar(2000, Calendar.JANUARY, 1));
         User user2 = new User("user2", "name1", new GregorianCalendar(1999, Calendar.JANUARY, 1));
         User user3 = new User("user3", "name3", new GregorianCalendar(2001, Calendar.JANUARY, 1));

@@ -2,8 +2,8 @@ package reflection;
 
 import oop.FileMailStore;
 import oop.MailStore;
-import oop.MailSystem;
 import oop.MemoryMailStore;
+import patterns.EnhancedMailSystem;
 import patterns.MailstoreCipherDecorator;
 import patterns.MailstoreReverseDecorator;
 import redis.MailstoreToRedisAdapter;
@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 
 @Config(store = "redis.RedisMailStore", log = true)
-public class ReflectingMailSystem extends MailSystem {
+public class ReflectingMailSystem extends EnhancedMailSystem {
 
     /**
      * Class constructor
@@ -30,7 +30,7 @@ public class ReflectingMailSystem extends MailSystem {
     }
 
     private MailStore getMailStore() throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        MailStore mailstore = null;
+        MailStore mailstore;
         Config config = ReflectingMailSystem.class.getAnnotation(Config.class);
         Class<?> clazz = Class.forName(config.store());
         Object o = clazz.getConstructor().newInstance();

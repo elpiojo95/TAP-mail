@@ -8,6 +8,10 @@ import java.util.Calendar;
 
 public class EnhancedMailSystem extends MailSystem {
 
+    public EnhancedMailSystem() {
+        super();
+    }
+
     public EnhancedMailSystem(MailStore mailStore) {
         super(mailStore);
     }
