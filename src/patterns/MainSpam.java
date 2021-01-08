@@ -6,9 +6,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 /**
- * main to test the spam of patterns package
+ * main to test the spam part of patterns package
  */
-public class mainSpam {
+public class MainSpam {
     public static void main(String[] args) {
 
         FileMailStore file = new FileMailStore("Spam.txt");

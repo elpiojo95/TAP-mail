@@ -1,10 +1,8 @@
-mimi#Miriam Gertrudix#1999/Jul/22;elpiojo#Leandro Gomez#1995/Sep/07;prueba1;body;2020-12-22 10:51:53.701;
-alego#Josh#1995/Aug/24;elpiojo#Leandro Gomez#1995/Sep/07;holi amigui;no sabem quan vas neixer;2020-12-22 10:52:14.586;
-elpiojo#Leandro Gomez#1995/Sep/07;mimi#Miriam Gertrudix#1999/Jul/22;gato;tienes el minino mas cuqui del mundo;2020-12-22 10:52:59.056;
-alego#Josh#1995/Aug/24;mimi#Miriam Gertrudix#1999/Jul/22;joshua;whats up nigga;2020-12-22 10:53:47.566;
-elpiojo#Leandro Gomez#1995/Sep/07;alego#Josh#1995/Aug/24;eres tonto;y no lo sabes;2020-12-22 10:54:19.907;
-mimi#Miriam Gertrudix#1999/Jul/22;alego#Josh#1995/Aug/24;holii;tu me caes bien;2020-12-22 10:55:07.087;
-elpiojo#Leandro Gomez#1995/Sep/07;mimi#Miriam Gertrudix#1999/Jul/22;nuevo mensaje;body like a king;2020-12-22 11:22:03.162;
-elpiojo#Leandro Gomez#1995/Sep/07;mimi#Miriam Gertrudix#1999/Jul/22;nuevo msg;he creado este msg solo para ti;2020-12-22 11:23:54.664;
-mimi#Miriam Gertrudix#1999/Jul/22;usuario#Miriam Gertrudix#1999/Jul/22;calabaza;calabaza;2020-12-22 17:43:13.525;
-mimi#Miriam Gertrudix#1999/Jul/22;usuario#Miriam Gertrudix#1999/Jul/22;Calabaza2;cAlabaza2;2020-12-22 19:01:47.499;
+user2#name1#1999/Jan/01;user1#name1#2000/Jan/01;subject;body;2021-01-08 11:27:51.45;
+user1#name1#2000/Jan/01;user2#name1#1999/Jan/01;subject filter;body;2021-01-08 11:27:51.655;
+user1#name1#2000/Jan/01;user3#name3#2001/Jan/01;subject2 filter;body;2021-01-08 11:27:51.863;
+user1#name1#2000/Jan/01;user2#name1#1999/Jan/01;subject3;body;2021-01-08 11:27:52.071;
+user1#name1#2000/Jan/01;user2#name1#1999/Jan/01;subject4;body;2021-01-08 11:27:52.28;
+user3#name3#2001/Jan/01;user2#name1#1999/Jan/01;group;body;2021-01-08 11:27:52.485;
+user1#name1#2000/Jan/01;user3#name3#2001/Jan/01;group;body;2021-01-08 11:27:52.693;
+user3#name3#2001/Jan/01;user1#name1#2000/Jan/01;group;body;2021-01-08 11:27:52.9;

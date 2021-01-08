@@ -8,7 +8,10 @@ import oop.User;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public class mainEncoding {
+/**
+ * main to test the Encoding part of patterns package
+ */
+public class MainEncoding {
     public static void main(String[] args) {
         System.out.println("---- NORMAL: ----");
         FileMailStore file = new FileMailStore("Normal.txt");
