@@ -5,7 +5,7 @@ object MailSys extends App {
   import patterns.EnhancedMailSystem
 
 
-  val mailStore= new MemoryMailStore()
+  val mailStore = new MemoryMailStore()
   val mailSystem = new EnhancedMailSystem(mailStore)
 
 
@@ -41,6 +41,6 @@ object MailSys extends App {
   estudiants.addChild(user4)
 
   cat.print()
-
+  println()
   println("All mail: " + cat.getMail)
 }

@@ -21,13 +21,10 @@ class Domain(str: String) extends Nodo{
   }
 
   def getMail: List[Message] = {
-    var l = new ListBuffer[Message]
+    val l = new ListBuffer[Message]
     list.foreach { e =>
-      var f = e.getMail
-      l.addAll(f)
+      l.addAll(e.getMail)
     }
-
-    return l.toList
+    l.toList
   }
-
 }
