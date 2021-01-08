@@ -1,12 +1,11 @@
 package oop.tests;
 
 import oop.*;
-import org.junit.After;
-import org.junit.Before;
+
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
+
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -21,40 +20,7 @@ public class testMailbox {
     private User user3;
     private File file;
 
-    @Before
-    public void Before() {
-        System.out.println("before");
-        file = new File("test.txt");
-        //memory mailStore
-        MailStore mailStore = new FileMailStore("test.txt");
-        //user1: Leo
-        Calendar leoBirth = new GregorianCalendar(1995,Calendar.SEPTEMBER,7);
-        user1 = new User("Leo","Leandro",leoBirth);
-        mailbox = new Mailbox(user1, mailStore);
-        //user2: Mimi
-        Calendar mimiBirth = new GregorianCalendar(1999,Calendar.JULY,22);
-        user2 = new User("mimi","Miriam Gertrudix",mimiBirth);
-        mailbox2 = new Mailbox(user2, mailStore);
-        //user3: Joshua
-        Calendar alegoBirth = new GregorianCalendar(1999,Calendar.JULY,22);
-        user3 = new User("alego23","Joshua",alegoBirth);
-        mailbox3 = new Mailbox(user3, mailStore);
-        //user2 send messages
-        mailbox2.send(user1,"subject", "body");
-        //user3 send messages
-        mailbox3.send(user1,"vaca", "muuu");
-    }
 
-    @After
-    public void after(){
-        System.out.println("after");
-        try {
-            file.delete();
-            file.createNewFile();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
 
 
 
@@ -63,10 +29,8 @@ public class testMailbox {
         System.out.println("messageList() -> testing");
         List<Message> expected = new ArrayList<>();
         mailbox.update();
-        Message msg2 =  new Message("subject","body", user2, user1,new Timestamp(System.currentTimeMillis()));
-        expected.add(msg2);
-        Message msg1 = new Message("vaca","muuu",user3,user1,new Timestamp(System.currentTimeMillis()));
-        expected.add(msg1);
+        expected.add(new Message("subject","body", user2, user1,new Timestamp(System.currentTimeMillis())));
+        expected.add(new Message("vaca","muuu",user3,user1,new Timestamp(System.currentTimeMillis())));
 
         assertEquals(mailbox.messageList().size(),expected.size());
         for (int i = 0; i < mailbox.messageList().size(); i++){
@@ -90,10 +54,8 @@ public class testMailbox {
     public void sorted(){
         System.out.println("sorted() -> testing");
         List<Message> expected = new ArrayList<>();
-        Message msg1 = new Message("vaca","muuu",user3,user1,new Timestamp(System.currentTimeMillis()));
-        expected.add(msg1);
-        Message msg2 =  new Message("subject","body", user2, user1,new Timestamp(System.currentTimeMillis()));
-        expected.add(msg2);
+        expected.add(new Message("vaca","muuu",user3,user1,new Timestamp(System.currentTimeMillis())));
+        expected.add(new Message("subject","body", user2, user1,new Timestamp(System.currentTimeMillis())));
         for (int i = 0; i < (mailbox.sorted(Comparator.comparing(Message::getSender)).size()); i++){
             assertEquals((mailbox.sorted(Comparator.comparing(Message::getSender)).get(i).getReceiver().getUsername()),expected.get(i).getReceiver().getUsername());
             assertEquals((mailbox.sorted(Comparator.comparing(Message::getSender)).get(i).getSender().getUsername()),expected.get(i).getSender().getUsername());
@@ -109,10 +71,8 @@ public class testMailbox {
         System.out.println("filter() -> testing");
         mailbox2.send(user1,"gato", "miau");
         mailbox3.send(user1,"gato", "miauumiauu");
-        Message msg3 = new Message("gato","miau",user2,user1,new Timestamp(System.currentTimeMillis()));
-        expected.add(msg3);
-        Message msg4 = new Message("gato","miauumiauu",user3,user1,new Timestamp(System.currentTimeMillis()));
-        expected.add(msg4);
+        expected.add(new Message("gato","miau",user2,user1,new Timestamp(System.currentTimeMillis())));
+        expected.add(new Message("gato","miauumiauu",user3,user1,new Timestamp(System.currentTimeMillis())));
         for (int i = 0; i < (mailbox.filter(MessageUtils.filterSubject("gato")).size()); i++){
             assertEquals((mailbox.filter(MessageUtils.filterSubject("gato")).get(i).getReceiver().getUsername()),expected.get(i).getReceiver().getUsername());
             assertEquals((mailbox.filter(MessageUtils.filterSubject("gato")).get(i).getSender().getUsername()),expected.get(i).getSender().getUsername());
@@ -120,9 +80,8 @@ public class testMailbox {
             assertEquals((mailbox.filter(MessageUtils.filterSubject("gato")).get(i).getBody()),expected.get(i).getBody());
         }
         expected.clear();
-        Message msg1 = new Message("vaca","muuu",user3,user1,new Timestamp(System.currentTimeMillis()));
-        expected.add(msg1);
-        expected.add(msg4);
+        expected.add(new Message("vaca","muuu",user3,user1,new Timestamp(System.currentTimeMillis())));
+        expected.add(new Message("gato","miauumiauu",user3,user1,new Timestamp(System.currentTimeMillis())));
         for (int i = 0; i < (mailbox.filter(MessageUtils.filterSender(user3)).size()); i++){
             assertEquals((mailbox.filter(MessageUtils.filterSender(user3)).get(i).getReceiver().getUsername()),expected.get(i).getReceiver().getUsername());
             assertEquals((mailbox.filter(MessageUtils.filterSender(user3)).get(i).getSender().getUsername()),expected.get(i).getSender().getUsername());
